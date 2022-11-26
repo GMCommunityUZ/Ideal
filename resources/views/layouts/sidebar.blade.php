@@ -64,6 +64,7 @@
           'roles.show',
           'user.show'
        ])
+            @if(auth()->user()->hasRole('Super Admin'))
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link {{ (Request::is('permission*') || Request::is('role*') || Request::is('user*')) ? 'active':''}}">
                     <i class="fas fa-users-cog"></i>
@@ -101,6 +102,7 @@
                     @endcan
                 </ul>
             </li>
+            @endif
         @endcanany
     </ul>
 
