@@ -34,6 +34,7 @@
                         <form action="{{ route('groupUpdate', $group->id) }}" method="post">
                             @csrf
                             @if(auth()->user()->hasRole('Super Admin'))
+
                                 <div class="form-group">
                                     <label>O'qituvchi</label>
                                     <select class="select2 {{ $errors->has('teacher_id') ? "is-invalid":"" }}"  name="teacher_id" data-placeholder="@lang('pleaseSelect')" style="width: 100%;">
@@ -70,8 +71,8 @@
                                     @endif
                                 </select>
                             </div>
-                            <div class="row" >
-                                <div class="col-4">
+                            <div class="row d-flex justify-content-around" >
+                                <div class="col-3">
                                     <div class="form-group">
                                         <input type="checkbox"    {{$group->monday == 'monday' ? 'checked' : ''}} name="monday" value="monday" >
                                         <label>Dushanba</label>
@@ -80,16 +81,17 @@
                                         <input type="checkbox" {{$group->tuesday == 'tuesday' ? 'checked' : ''}} name="tuesday" value="tuesday"  >
                                         <label>Seshanba</label>
                                     </div>
+                                </div>
+                                <div class="col-3">
                                     <div class="form-group">
-                                        <input type="checkbox" {{$group->wednesday == 'wednesday' ? 'checked' : ''}} name="wednesday" value="wednesday"  >
-                                        <label>Chorshanba</label>
+                                        <label>
+                                            <input type="checkbox" name="wednesday" value="wednesday"> Chorshanba</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label><input type="checkbox" name="friday" value="friday" > Payshanba</label>
                                     </div>
                                 </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <input type="checkbox" {{$group->friday == 'friday' ? 'checked' : ''}} name="friday" value="friday" >
-                                        <label>Payshanba</label>
-                                    </div>
+                                <div class="col-3">
                                     <div class="form-group">
                                         <input type="checkbox" {{$group->thursday == 'thursday' ? 'checked' : ''}} name="thursday" value="thursday" >
                                         <label>Juma</label>
@@ -112,7 +114,7 @@
                                         <span class="error invalid-feedback">{{ $errors->first('starts_at') }}</span>
                                     @endif
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group ml-5">
                                     <label>Dars tugash vaqti</label>
                                     <input type="time" name="ends_at" class="form-control {{ $errors->has('ends_at') ? "is-invalid":"" }}" value="{{ old('ends_at', $group->ends_at) }}" required>
                                     @if($errors->has('ends_at'))

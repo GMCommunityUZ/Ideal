@@ -96,6 +96,10 @@
                                                 </form>
                                             @endcan
                                         </td>
+                                    @else
+                                        <td class="text-center">
+                                            <a class="badge badge-danger ">Ruxsat etilmagan</a>
+                                        </td>
 
                                     @endif
                                 </tr>

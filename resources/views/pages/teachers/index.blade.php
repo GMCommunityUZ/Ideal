@@ -55,20 +55,37 @@
                                         <td>{{$teacher->phone}}</td>
                                         <td>{{ $teacher->email}}</td>
                                         <td>{{$teacher->course}}</td>
-                                        <td class="text-center">
-                                            @can('teacher.delete')
-                                            <form action="{{route('teacherDestroy',$teacher->id)}}" method="post">
-                                                @csrf
-                                                <div class="btn-group">
-                                                    @can('teacher.edit')
-                                                        <a href="{{ route('teacherEdit',$teacher->id) }}" type="button" class="btn btn-info btn-sm"> <i class="fas fa-edit"></i></a>
-                                                    @endcan
-                                                    <input name="_method" type="hidden" value="DELETE">
-                                                    <button type="button" class="btn btn-danger btn-sm" onclick="if (confirm('Вы уверены?')) { this.form.submit() } "> <i class="fas fa-trash-alt"></i></button>
-                                                </div>
-                                            </form>
-                                            @endcan
-                                        </td>
+                                        @if(auth()->user()->hasRole('Super Admin'))
+                                            <td class="text-center">
+                                                @can('teacher.delete')
+                                                    <form action="{{route('teacherDestroy',$teacher->id)}}" method="post">
+                                                        @csrf
+                                                        <div class="btn-group">
+                                                            @can('teacher.edit')
+                                                                <a href="{{ route('teacherEdit',$teacher->id) }}" type="button" class="btn btn-info btn-sm"> <i class="fas fa-edit"></i></a>
+                                                            @endcan
+                                                            <input name="_method" type="hidden" value="DELETE">
+                                                            <button type="button" class="btn btn-danger btn-sm" onclick="if (confirm('Вы уверены?')) { this.form.submit() } "> <i class="fas fa-trash-alt"></i></button>
+                                                        </div>
+                                                    </form>
+                                                @endcan
+                                            </td>
+                                        @elseif(auth()->user()->id == $teacher->id)
+                                            <td class="text-center">
+                                                <form action="{{route('teacherDestroy',$teacher->id)}}" method="post">
+                                                    @csrf
+                                                    <div class="btn-group">
+                                                            <a href="{{ route('teacherEdit',$teacher->id) }}" type="button" class="btn btn-info btn-sm"> <i class="fas fa-edit"></i></a>
+                                                        <input name="_method" type="hidden" value="DELETE">
+                                                        <button type="button" class="btn btn-danger btn-sm" onclick="if (confirm('Вы уверены?')) { this.form.submit() } "> <i class="fas fa-trash-alt"></i></button>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                                @else
+                                                    <td class="text-center">
+                                                        <a class="badge badge-danger ">Ruxsat etilmagan</a>
+                                                    </td>
+                                                @endif
                                     </tr>
                                 @endforeach
 
