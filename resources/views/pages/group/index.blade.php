@@ -53,7 +53,7 @@
                             <tbody>
                             @foreach($groups as $group)
                                 <tr>
-                                    <td>{{ $group->id }}</td>
+                                    <td>{{ $loop->index+1 }}</td>
                                     <td>{{ $group->name }}</td>
                                     <td>@if(isset($group->teacher->name)) {{ $group->teacher->name }}  @else <a class="btn-sm btn-danger">Topilmadi</a> @endif</td>
                                     <td>@if(isset($group->teacher->course )) {{ $group->teacher->course }} @else <a class="btn-sm btn-danger">Topilmadi</a> @endif</td>
