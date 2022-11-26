@@ -1,0 +1,41 @@
+[33mcommit 97517515400e6c49808e164755980bd1b86d5203[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: jamshid <jamshidqochqorov84@gmail.com>
+Date:   Fri Nov 25 16:28:57 2022 +0500
+
+    Teacher crud 67% successfuly
+
+[33mcommit a61e2cc083bbdb1139d63d81df6af7b627e13f2b[m
+Author: jamshid <jamshidqochqorov84@gmail.com>
+Date:   Fri Nov 25 13:37:08 2022 +0500
+
+    Course crud completed successfullyy
+
+[33mcommit 965d9a2d9bd8a94439298b0db11c74500dee8a9f[m
+Author: jamshid <jamshidqochqorov84@gmail.com>
+Date:   Fri Nov 25 12:59:38 2022 +0500
+
+    AppSeves i edit becouse i did't work
+
+[33mcommit 1e5310720b18941f7bb2817b7969d8b988deae5d[m
+Author: jamshid <jamshidqochqorov84@gmail.com>
+Date:   Fri Nov 25 10:07:54 2022 +0500
+
+    web.php added route postmethod
+
+[33mcommit b8e1a078688a902683eda12bed6b60f1e64d2648[m
+Author: Asadbek02 <asadbekabdusalomov2076@gmail.com>
+Date:   Thu Nov 24 16:54:03 2022 +0500
+
+    jamshid edit env file
+
+[33mcommit 25a83058a1b72c27662b7b9b2f6b02ed82840b30[m
+Author: Asadbek Abdusalomov <92907562+Asadbek02@users.noreply.github.com>
+Date:   Thu Nov 24 16:35:08 2022 +0500
+
+    Create .env.example
+
+[33mcommit b588fef70bc2aeded1dca5f6716ab19bcaac9940[m
+Author: Asadbek02 <asadbekabdusalomov2076@gmail.com>
+Date:   Thu Nov 24 16:31:38 2022 +0500
+
+    ideal v.1.0
