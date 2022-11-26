@@ -44,9 +44,9 @@
                                 <th>O'qituvchisi</th>
                                 <th>Fani</th>
                                 <th>Narx</th>
+                                <th>Dars kunlari</th>
                                 <th>Dars boshlanish vaqti</th>
                                 <th>Dars tugash vaqti</th>
-                                <th>Dars kunlari</th>
                                 <th class="w-25">Amallar</th>
                             </tr>
                             </thead>
