@@ -60,6 +60,32 @@
     </ul>
     <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
         @canany([
+          'teacher.show',
+          'attendance.show'
+       ])
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link {{ (Request::is('attendance'))? 'active':''}}">
+                    <i class="fas fa-calendar-alt"></i>
+                    <p>
+                        Davomat
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview" style="display: {{ (Request::is('attendance*')) ? 'block':'none'}};">
+                    @can('attendance.show')
+                        <li class="nav-item">
+                            <a href="{{ route('attendanceIndex') }}" class="nav-link {{ Request::is('attendance*') ? "active":'' }}">
+                                <i class="fas fa-users"></i>
+                                <p>Bor yo'qlama</p>
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcanany
+    </ul>
+    <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+        @canany([
           'permission.show',
           'roles.show',
           'user.show'

@@ -9,6 +9,7 @@ use App\Http\Controllers\Blade\ApiUserController;
 use App\Http\Controllers\Blade\GroupController;
 use App\Http\Controllers\Blade\AmountController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\AttendanceController;
 /*
 |--------------------------------------------------------------------------
 | Blade (front-end) Routes
@@ -31,7 +32,9 @@ Route::get('/', function (){
 // Web pages
 Route::group(['middleware' => 'auth'],function (){
 
-
+    //Attendance
+    Route::get('attendance',[AttendanceController::class,'index'])->name('attendanceIndex');
+    Route::post('attendance/create',[AttendanceController::class,'create'])->name('attendanceCreate');
     //Teacher
     Route::get('teacher',[TeacherController::class,'index'])->name('teacherIndex');
     Route::get('teacher/add',[TeacherController::class,'add'])->name('teacherAdd');
