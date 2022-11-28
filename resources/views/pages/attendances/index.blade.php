@@ -30,9 +30,10 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <!-- Data table -->
-                       <form action="{{route('attendanceCreate')}}" method="POST">
-                           @csrf
+
                            @foreach($groups as $group)
+                            <form action="{{route('attendanceCreate')}}" method="POST">
+                                @csrf
                                <div class="card collapsed-card">
                                    <div class="card-header border-transparent">
                                        <h3 class="card-title">{{$group->name}} <span class="m-1 badge badge-danger">{{ date("Y-m-d")}}</span></h3>
@@ -88,9 +89,9 @@
 
                                </div>
 
-
+                            </form>
                            @endforeach
-                       </form>
+
                     </div>
                     <!-- /.card-body -->
 
