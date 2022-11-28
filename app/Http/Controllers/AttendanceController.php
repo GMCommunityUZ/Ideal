@@ -22,37 +22,46 @@ class AttendanceController extends Controller
         return view('pages.attendances.index',compact('groups'));
     }
     public function create(Request $request){
-        //shart qolgan
         $attenddate = date('Y-m-d');
-        $date = new DateAttendance();
-        $date->group_id = $request->group_id;
-        $date->date = $attenddate;
-        $date->status = true;
-        $date->save();
-        $teacher =User::find(auth()->user()->id);
-        foreach($request->attendances as $studentid=>$attendance){
-               if($attendance == "on"){
-                   $attendance_status = true;
-                   $attendancedate =  new Attendance();
-                   $attendancedate->group_id = $request->group_id;
-                   $attendancedate->user_id = $teacher->id;
-                   $attendancedate->student_id = $studentid;
-                   $attendancedate->create_at = $attenddate;
-                   $attendancedate->status = $attendance_status;
-                   $attendancedate->save();
+        $issetgroup = DateAttendance::where('group_id',$request->group_id)->where('date',$attenddate)->first();
+       if(!$issetgroup == null){
+           message_set('Bugun uchun Bor yo\'qlama qilingan!','warning');
+           return redirect()->route('attendanceIndex');
+       }
 
-               }elseif($attendance == "off"){
-                   $attendance_status = false;
-                   $attendancedate =  new Attendance();
-                   $attendancedate->group_id = $request->group_id;
-                   $attendancedate->user_id = $teacher->id;
-                   $attendancedate->student_id = $studentid;
-                   $attendancedate->create_at = $attenddate;
-                   $attendancedate->status = $attendance_status;
-                   $attendancedate->save();
+        else{
+            if($request->group_id)
+                $date = new DateAttendance();
+            $date->group_id = $request->group_id;
+            $date->date = $attenddate;
+            $date->status = true;
+            $date->save();
+            $teacher =User::find(auth()->user()->id);
+            foreach($request->attendances as $studentid=>$attendance){
+                if($attendance == "on"){
+                    $attendance_status = true;
+                    $attendancedate =  new Attendance();
+                    $attendancedate->group_id = $request->group_id;
+                    $attendancedate->user_id = $teacher->id;
+                    $attendancedate->student_id = $studentid;
+                    $attendancedate->create_at = $attenddate;
+                    $attendancedate->status = $attendance_status;
+                    $attendancedate->save();
 
-               }
+                }elseif($attendance == "off"){
+                    $attendance_status = false;
+                    $attendancedate =  new Attendance();
+                    $attendancedate->group_id = $request->group_id;
+                    $attendancedate->user_id = $teacher->id;
+                    $attendancedate->student_id = $studentid;
+                    $attendancedate->create_at = $attenddate;
+                    $attendancedate->status = $attendance_status;
+                    $attendancedate->save();
+
+                }
+            }
+            message_set("Muvofaqiyatli Yakunlandi!",'success');
+            return redirect()->route('attendanceIndex');
         }
-        return redirect()->route('attendanceIndex');
     }
 }
