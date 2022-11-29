@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\DateAttendance;
 use App\Models\Group;
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,8 +19,8 @@ class AttendanceController extends Controller
         elseif (auth()->user()->hasRole("Teacher")){
             $groups = Group::where('teacher_id',"=",2)->get();
         }
-
-        return view('pages.attendances.index',compact('groups'));
+            $students = Student::all();
+        return view('pages.attendances.index',compact('groups', 'students'));
     }
     public function create(Request $request){
         $attenddate = date('Y-m-d');

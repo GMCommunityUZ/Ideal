@@ -27,7 +27,7 @@
                         </li>
                             <li class="nav-item">
                                 <a href="{{ route('studentIndex') }}" class="nav-link {{ Request::is('student*') ? "active":'' }}">
-                                    <i class="fas "></i>
+                                    <i class="fas fa-user-graduate"></i>
                                     <p>O'quvchilar</p>
                                 </a>
                             </li>

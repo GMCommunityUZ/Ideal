@@ -57,15 +57,19 @@
                                                </tr>
                                                </thead>
                                                <tbody>
-                                               <tr>
-                                                   <td>{{$group->students->name}}</td>
-                                                   <td> <div class="form-group">
-                                                           <label>
-                                                               <input type="hidden" name="attendances[{{$group->students->id}}]" value="off">
-                                                               <input class="width:50%" type="checkbox" name="attendances[{{$group->students->id}}]" value="on"> </label>
-                                                       </div>
-                                                   </td>
-                                               </tr>
+                                               @foreach($students as $student)
+                                                   @if($group->id == $student->group_id)
+                                                   <tr>
+                                                       <td>{{$student->name}}</td>
+                                                       <td> <div class="form-group">
+                                                               <label>
+                                                                   <input type="hidden" name="attendances[{{$student->id}}]" value="off">
+                                                                   <input class="width:50%" type="checkbox" name="attendances[{{$student->id}}]" value="on"> </label>
+                                                           </div>
+                                                       </td>
+                                                   </tr>
+                                                   @endif
+                                               @endforeach
                                                </tbody>
                                            </table>
                                        </div>
