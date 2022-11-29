@@ -30,7 +30,7 @@ class AttendanceController extends Controller
        }
 
         else{
-            if($request->group_id)
+            if($request->has('group_id'))
                 $date = new DateAttendance();
             $date->group_id = $request->group_id;
             $date->date = $attenddate;

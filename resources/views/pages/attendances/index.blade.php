@@ -58,24 +58,14 @@
                                                </thead>
                                                <tbody>
                                                <tr>
-                                                   <td>Jamshid</td>
+                                                   <td>{{$group->students->name}}</td>
                                                    <td> <div class="form-group">
                                                            <label>
-                                                               <input type="hidden" name="attendances[1]" value="off">
-                                                               <input class="width:50%" type="checkbox" name="attendances[1]" value="on"> </label>
+                                                               <input type="hidden" name="attendances[{{$group->students->id}}]" value="off">
+                                                               <input class="width:50%" type="checkbox" name="attendances[{{$group->students->id}}]" value="on"> </label>
                                                        </div>
                                                    </td>
                                                </tr>
-                                               <tr>
-                                                   <td>Asadbek</td>
-                                                   <td> <div class="form-group">
-                                                           <label>
-                                                               <input type="hidden" name="attendances[2]" value="off">
-                                                               <input class="width:50%" type="checkbox" name="attendances[2]" value="on"> </label>
-                                                       </div>
-                                                   </td>
-                                               </tr>
-
                                                </tbody>
                                            </table>
                                        </div>

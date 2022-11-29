@@ -67,7 +67,7 @@
                                     @if(auth()->user()->hasRole('Super Admin'))
                                         <td class="text-center">
                                             @can('user.delete')
-                                                <form action="{{route('groupDestroy',$student->id)}}" method="post">
+                                                <form action="{{route('studentDestroy',$student->id)}}" method="post">
                                                     @csrf
                                                     <div class="btn-group">
                                                         @can('user.edit')
@@ -82,7 +82,7 @@
                                     @elseif(auth()->user()->hasRole('Super Admin'))
                                         <td class="text-center">
                                             @can('user.delete')
-                                                <form action="{{route('groupDestroy',$student->id)}}" method="post">
+                                                <form action="{{route('studentDestroy',$student->id)}}" method="post">
                                                     @csrf
                                                     <div class="btn-group">
                                                         @can('user.edit')

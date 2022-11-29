@@ -15,4 +15,7 @@ class Group extends Model
     public function amount(){
         return $this->belongsTo(Amount::class, 'amount_id', 'id');
     }
+    public function students(){
+        return $this->belongsTo(Student::class, 'id', 'group_id');
+    }
 }

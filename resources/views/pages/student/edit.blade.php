@@ -78,7 +78,11 @@
                             </div>
                             <div class="form-group">
                                 <label>Telefon raqam 2</label>
-                                <input type="text" name="phone_2" class="form-control {{ $errors->has('phone_2') ? "is-invalid":"" }}" value="{{ old('phone_2', $student->phone_2) }}" required>
+                                @if($student->phone_2 == 'Mavjud emas')
+                                    <input type="text" name="phone_2" class="form-control {{ $errors->has('phone_2') ? "is-invalid":"" }}" >
+                                @else
+                                    <input type="text" name="phone_2" class="form-control {{ $errors->has('phone_2') ? "is-invalid":"" }}" value="{{ old('phone_2', $student->phone_2) }}" >
+                                @endif
                                 @if($errors->has('phone_2'))
                                     <span class="error invalid-feedback">{{ $errors->first('phone_2') }}</span>
                                 @endif
