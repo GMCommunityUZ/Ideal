@@ -25,7 +25,7 @@ class AttendanceController extends Controller
         $attenddate = date('Y-m-d');
         $issetgroup = DateAttendance::where('group_id',$request->group_id)->where('date',$attenddate)->first();
        if(!$issetgroup == null){
-           message_set('Bugun uchun Bor yo\'qlama qilingan!','warning');
+           message_set('Bugun uchun Bor yo\'qlama qilingan!','error');
            return redirect()->route('attendanceIndex');
        }
 
