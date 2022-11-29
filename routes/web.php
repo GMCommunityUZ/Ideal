@@ -8,6 +8,7 @@ use App\Http\Controllers\Blade\HomeController;
 use App\Http\Controllers\Blade\ApiUserController;
 use App\Http\Controllers\Blade\GroupController;
 use App\Http\Controllers\Blade\AmountController;
+use App\Http\Controllers\Blade\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\AttendanceController;
 /*
@@ -42,6 +43,15 @@ Route::group(['middleware' => 'auth'],function (){
     Route::get('teacher/{id}/edit',[TeacherController::class,'edit'])->name('teacherEdit');
     Route::post('teacher/update/{id}',[TeacherController::class,'update'])->name('teacherUpdate');
     Route::delete('teacher/delete/{id}',[TeacherController::class,'destroy'])->name('teacherDestroy');
+
+    //Student
+    Route::get('students',[StudentController::class,'index'])->name('studentIndex');
+    Route::get('students/add',[StudentController::class,'add'])->name('studentAdd');
+    Route::post('students/create',[StudentController::class,'create'])->name('studentCreate');
+    Route::get('students/{id}/edit',[StudentController::class,'edit'])->name('studentEdit');
+    Route::post('students/update/{id}',[StudentController::class,'update'])->name('studentUpdate');
+    Route::delete('students/delete/{id}',[StudentController::class,'destroy'])->name('studentDestroy');
+
     //Amount
     Route::get('amounts',[AmountController::class,'index'])->name('amountIndex');
     Route::get('amounts/add',[AmountController::class,'add'])->name('amountAdd');

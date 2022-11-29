@@ -40,7 +40,7 @@
                                         <option value=""></option>
                                         @foreach($teachers as $teacher)
                                             @if(auth()->user()->id != $teacher->id)
-                                                <option value="{{ $teacher->id }}">{{ $teacher->name }} </option>
+                                                <option value="{{ $teacher->id }}">{{ $teacher->name }} | {{$teacher->course}} </option>
                                             @endif
                                         @endforeach
                                         @if($errors->has('teacher_id'))

@@ -5,30 +5,32 @@
           'teacher.show'
        ])
             <li class="nav-item has-treeview">
-                <a href="#" class="nav-link {{ (Request::is('group*')||Request::is('teacher*'))? 'active':''}}">
+                <a href="#" class="nav-link {{ (Request::is('group*')||Request::is('teacher*')) || Request::is('student*')? 'active':''}}">
                     <i class="fas fa-home"></i>
                     <p>
                         Tizim
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview" style="display: {{ (Request::is('group*') ||  Request::is('teacher*')) ? 'block':'none'}};">
-                    @can('teacher.show')
+                <ul class="nav nav-treeview" style="display: {{ (Request::is('group*') ||Request::is('student*') ||  Request::is('teacher*')) ? 'block':'none'}};">
                         <li class="nav-item">
                             <a href="{{ route('teacherIndex') }}" class="nav-link {{ Request::is('teacher*') ? "active":'' }}">
                                 <i class="fas fa-chalkboard-teacher"></i>
                                 <p>O'qituvchilar</p>
                             </a>
                         </li>
-                    @endcan
-                    @can('teacher.show')
                         <li class="nav-item">
                             <a href="{{ route('groupIndex') }}" class="nav-link {{ Request::is('group*') ? "active":'' }}">
                                 <i class="fas fa-object-group"></i>
                                 <p>Guruhlar</p>
                             </a>
                         </li>
-                    @endcan
+                            <li class="nav-item">
+                                <a href="{{ route('studentIndex') }}" class="nav-link {{ Request::is('student*') ? "active":'' }}">
+                                    <i class="fas "></i>
+                                    <p>O'quvchilar</p>
+                                </a>
+                            </li>
                 </ul>
             </li>
         @endcanany

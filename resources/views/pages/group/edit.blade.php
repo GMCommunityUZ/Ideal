@@ -41,7 +41,7 @@
                                         <option value=""></option>
                                         @foreach($teachers as $teacher)
                                             @if(auth()->user()->id != $teacher->id)
-                                                <option {{$group->teacher_id == $teacher->id ? 'selected' : ''}} value="{{ $teacher->id }}">{{ $teacher->name }} </option>
+                                                <option {{$group->teacher_id == $teacher->id ? 'selected' : ''}} value="{{ $teacher->id }}">{{ $teacher->name }} | {{$teacher->course}} </option>
                                             @endif
                                         @endforeach
                                         @if($errors->has('teacher_id'))
@@ -85,25 +85,25 @@
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label>
-                                            <input type="checkbox" name="wednesday" value="wednesday"> Chorshanba</label>
+                                            <input type="checkbox" {{$group->wednesday == 'wednesday' ? 'checked' : ''}} name="wednesday" value="wednesday"> Chorshanba</label>
                                     </div>
                                     <div class="form-group">
-                                        <label><input type="checkbox" name="friday" value="friday" > Payshanba</label>
+                                        <label><input type="checkbox" {{$group->friday == 'friday' ? 'checked' : ''}} name="friday" value="friday" > Payshanba</label>
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
-                                        <input type="checkbox" {{$group->thursday == 'thursday' ? 'checked' : ''}} name="thursday" value="thursday" >
-                                        <label>Juma</label>
+
+                                        <label><input type="checkbox" {{$group->thursday == 'thursday' ? 'checked' : ''}} name="thursday" value="thursday" > Juma</label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="checkbox" {{$group->saturday == 'saturday' ? 'checked' : ''}} name="saturday" value="saturday">
-                                        <label>Shanba</label>
+
+                                        <label><input type="checkbox" {{$group->saturday == 'saturday' ? 'checked' : ''}} name="saturday" value="saturday"> Shanba</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="checkbox" {{$group->sunday == 'sunday' ? 'checked' : ''}} name="sunday" value="sunday">
-                                    <label>Yakshanba</label>
+
+                                    <label><input type="checkbox" {{$group->sunday == 'sunday' ? 'checked' : ''}} name="sunday" value="sunday"> Yakshanba</label>
                                 </div>
                             </div>
                             <div class="row">

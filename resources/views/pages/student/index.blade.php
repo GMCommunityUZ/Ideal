@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 >Guruhlar ro'yhati</h1>
+                    <h1 >O'quvchilar ro'yhati</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Bosh sahifa</a></li>
-                        <li class="breadcrumb-item active">Guruhlar ro'yhati</li>
+                        <li class="breadcrumb-item active">O'quvchilar ro'yhati</li>
                     </ol>
                 </div>
             </div>
@@ -25,8 +25,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                    @can('teacher.show')
-                            <a href="{{route('groupAdd')}}" class="btn btn-success btn-sm float-right">
+
+                        @can('teacher.show')
+                            <a href="{{route('studentAdd')}}" class="btn btn-success btn-sm float-right">
                                 <span class="fas fa-plus-circle"></span>
                                 Qo'shish
                             </a>
@@ -40,40 +41,37 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Ism familiya</th>
                                 <th>Gurux nomi</th>
-                                <th>O'qituvchisi</th>
-                                <th>Fani</th>
-                                <th>Narx</th>
-                                <th>Dars kunlari</th>
-                                <th>Dars boshlanish vaqti</th>
-                                <th>Dars tugash vaqti</th>
+                                @if(auth()->user()->hasRole('Super Admin'))
+                                    <th>O'qituvchi</th>
+                                    <th>Fani</th>
+                                @endif
+                                <th>Telefon raqam 1</th>
+                                <th>Telefon raqam 2</th>
                                 <th class="w-25">Amallar</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($groups as $group)
+                            @foreach($students as $student)
                                 <tr>
                                     <td>{{ $loop->index+1 }}</td>
-                                    <td>{{ $group->name }}</td>
-                                    <td>@if(isset($group->teacher->name)) {{ $group->teacher->name }}  @else <a class="btn-sm btn-danger">Topilmadi</a> @endif</td>
-                                    <td>@if(isset($group->teacher->course )) {{ $group->teacher->course }} @else <a class="btn-sm btn-danger">Topilmadi</a> @endif</td>
-                                    <td>{{ $group->amount->price }} so'm</td>
-                                    <td>{{ $group->monday == 'monday' ? 'Du / ': '' }}{{ $group->tuesday == 'tuesday' ? 'Se / ': '' }}{{ $group->wednesday == 'wednesday' ? 'Chor / ': '' }}{{ $group->friday == 'friday' ? 'Pay / ': '' }}{{ $group->thursday == 'thursday' ? 'Ju / ': '' }}{{ $group->saturday == 'saturday' ? 'Sha / ': '' }} {{ $group->sunday == 'sunday' ? 'Yak': '' }}
-                                        @if($group->monday==null && $group->tuesday == null &&
-                                        $group->wednesday == null && $group->friday == null  &&
-                                        $group->thursday == null  && $group->saturday == null && $group->sunday == null)
-                                            Bo'sh
-                                        @endif</td>
-                                    <td>{{date('H:i', strtotime($group->starts_at))}}</td>
-                                    <td>{{date('H:i', strtotime($group->ends_at))}}</td>
+                                    <td>{{ $student->name }}</td>
+                                    <td>@if(isset($student->group->name)) {{ $student->group->name }}  @else <a class="btn-sm btn-danger">Topilmadi</a> @endif</td>
+                                    @if(auth()->user()->hasRole('Super Admin'))
+                                        <td>@if(isset($student->group->teacher->name )) {{ $student->group->teacher->name }} @else <a class="btn-sm btn-danger">Topilmadi</a> @endif</td>
+                                        <td>@if(isset($student->group->teacher->course )) {{ $student->group->teacher->course }} @else <a class="btn-sm btn-danger">Topilmadi</a> @endif</td>
+                                    @endif
+                                    <td>{{$student->phone_1}}</td>
+                                    <td>{{$student->phone_2}}</td>
                                     @if(auth()->user()->hasRole('Super Admin'))
                                         <td class="text-center">
                                             @can('user.delete')
-                                                <form action="{{route('groupDestroy',$group->id)}}" method="post">
+                                                <form action="{{route('groupDestroy',$student->id)}}" method="post">
                                                     @csrf
                                                     <div class="btn-group">
                                                         @can('user.edit')
-                                                            <a href="{{ route('groupEdit',$group->id) }}" type="button" class="btn btn-info btn-sm"> <i class="fas fa-edit"></i></a>
+                                                            <a href="{{ route('studentEdit',$student->id) }}" type="button" class="btn btn-info btn-sm"> <i class="fas fa-edit"></i></a>
                                                         @endcan
                                                         <input name="_method" type="hidden" value="DELETE">
                                                         <button type="button" class="btn btn-danger btn-sm" onclick="if (confirm('Ishonchingiz komilmi?')) { this.form.submit() } "> <i class="fas fa-trash-alt"></i></button>
@@ -81,14 +79,29 @@
                                                 </form>
                                             @endcan
                                         </td>
-                                    @elseif(auth()->user()->id == $group->teacher_id)
+                                    @elseif(auth()->user()->hasRole('Super Admin'))
+                                        <td class="text-center">
+                                            @can('user.delete')
+                                                <form action="{{route('groupDestroy',$student->id)}}" method="post">
+                                                    @csrf
+                                                    <div class="btn-group">
+                                                        @can('user.edit')
+                                                            <a href="{{ route('studentEdit',$student->id) }}" type="button" class="btn btn-info btn-sm"> <i class="fas fa-edit"></i></a>
+                                                        @endcan
+                                                        <input name="_method" type="hidden" value="DELETE">
+                                                        <button type="button" class="btn btn-danger btn-sm" onclick="if (confirm('Ishonchingiz komilmi?')) { this.form.submit() } "> <i class="fas fa-trash-alt"></i></button>
+                                                    </div>
+                                                </form>
+                                            @endcan
+                                        </td>
+                                    @elseif(auth()->user()->id == $student->group->teacher_id)
                                         <td class="text-center">
                                             @can('teacher.show')
-                                                <form action="{{route('groupDestroy',$group->id)}}" method="post">
+                                                <form action="{{route('groupDestroy',$student->id)}}" method="post">
                                                     @csrf
                                                     <div class="btn-group">
                                                         @can('teacher.show')
-                                                            <a href="{{ route('groupEdit',$group->id) }}" type="button" class="btn btn-info btn-sm"> <i class="fas fa-edit"></i></a>
+                                                            <a href="{{ route('studentEdit',$student->id) }}" type="button" class="btn btn-info btn-sm"> <i class="fas fa-edit"></i></a>
                                                         @endcan
                                                         <input name="_method" type="hidden" value="DELETE">
                                                         <button type="button" class="btn btn-danger btn-sm" onclick="if (confirm('Ishonchingiz komilmi?')) { this.form.submit() } "> <i class="fas fa-trash-alt"></i></button>
@@ -109,7 +122,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer mt-3 ">
-                        {!! $groups->links() !!}
+                        {!! $students->links() !!}
                     </div>
                 </div>
                 <!-- /.card -->
