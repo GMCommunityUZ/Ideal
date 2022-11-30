@@ -11,6 +11,7 @@ use App\Models\Group;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GroupController extends Controller
 {
@@ -75,6 +76,18 @@ class GroupController extends Controller
         return redirect()->route('groupIndex');
     }
     public function destroy($id){
+        $attendences = Attendance::all();
+        foreach($attendences as $attendence):
+            $attendence->where('group_id', $id)->delete();
+        endforeach;
+        $data_attendences = DateAttendance::all();
+        foreach($data_attendences as $date_attendence):
+            $date_attendence->where('group_id', $id)->delete();
+        endforeach;
+        $students = Student::all();
+        foreach($students as $student):
+            $student->where('group_id', $id)->delete();
+        endforeach;
         Group::where('id', $id)->delete();
         if(Student::where('group_id',$id)->exists()){
             Student::where('group_id',$id)->delete();
