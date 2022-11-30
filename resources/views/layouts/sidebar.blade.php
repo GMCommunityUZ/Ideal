@@ -66,22 +66,30 @@
           'attendance.show'
        ])
             <li class="nav-item has-treeview">
-                <a href="#" class="nav-link {{ (Request::is('attendance'))? 'active':''}}">
+                <a href="#" class="nav-link {{ (Request::is('attendance')) || (Request::is('inspection'))? 'active':''}}">
                     <i class="fas fa-calendar-alt"></i>
                     <p>
                         Davomat
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview" style="display: {{ (Request::is('attendance*')) ? 'block':'none'}};">
-                    @can('attendance.show')
+                <ul class="nav nav-treeview" style="display: {{ (Request::is('attendance*'))||(Request::is('inspection*')) ? 'block':'none'}};">
+                    @can('attendance.index')
                         <li class="nav-item">
                             <a href="{{ route('attendanceIndex') }}" class="nav-link {{ Request::is('attendance*') ? "active":'' }}">
-                                <i class="fas fa-users"></i>
+                                <i class="fa fa-check"></i>
                                 <p>Bor yo'qlama</p>
                             </a>
                         </li>
                     @endcan
+                        @can('attendance.show')
+                            <li class="nav-item">
+                                <a href="{{ route('inspectionIndex') }}" class="nav-link {{ Request::is('*') ? "active":'' }}">
+                                    <i class="fas fa-search"></i>
+                                    <p>Guruh Bo'yicha</p>
+                                </a>
+                            </li>
+                        @endcan
                 </ul>
             </li>
         @endcanany

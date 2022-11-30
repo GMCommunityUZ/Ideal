@@ -78,8 +78,8 @@
                                 @endif
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-success float-right">@lang('global.save')</button>
-                                <a href="{{ route('userIndex') }}" class="btn btn-default float-left">@lang('global.cancel')</a>
+                                <button type="submit" class="btn btn-success float-right">Saqlash</button>
+                                <a href="{{ route('teacherIndex') }}" class="btn btn-default float-left">Orqaga</a>
                             </div>
                         </form>
 

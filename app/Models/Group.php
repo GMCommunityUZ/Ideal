@@ -18,4 +18,5 @@ class Group extends Model
     public function students(){
         return $this->belongsTo(Student::class, 'id', 'group_id');
     }
+
 }

@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Blade;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\TeacherController;
 use App\Models\Amount;
+use App\Models\Attendance;
+use App\Models\DateAttendance;
 use App\Models\Group;
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -73,6 +76,14 @@ class GroupController extends Controller
     }
     public function destroy($id){
         Group::where('id', $id)->delete();
+        if(Student::where('group_id',$id)->exists()){
+            Student::where('group_id',$id)->delete();
+        }elseif(Attendance::where('group_id',$id)->exists()){
+            Attendance::where('group_id',$id)->delete();
+        }elseif(DateAttendance::where('group_id',$id)->exists()){
+            DateAttendance::where('group_id',$id)->delete();
+        }
+
         return redirect()->back();
     }
 }

@@ -64,5 +64,10 @@ class AttendanceController extends Controller
             message_set("Muvofaqiyatli Yakunlandi!",'success');
             return redirect()->route('attendanceIndex');
         }
+
+    }
+    public function show(){
+        $groups = Group::all();
+        return view('pages.attendances.show',compact('groups'));
     }
 }

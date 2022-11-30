@@ -36,7 +36,7 @@
                                 @csrf
                                <div class="card collapsed-card">
                                    <div class="card-header border-transparent">
-                                       <h3 class="card-title">{{$group->name}} <span class="m-1 badge badge-danger">{{ date("Y-m-d")}}</span></h3>
+                                       <h3 class="card-title">{{$group->name}} <span class="m-1 badge badge-primary">{{ date("Y-m-d")}} </span> <span class="m-1 badge badge-{{is_date_group($group->id)?"danger":"success"}}">{{is_date_group($group->id)?"Olinmagan":"Olingan"}}</span></h3>
                                        <div class="card-tools">
                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                                <i class="fas fa-plus"></i>
@@ -77,7 +77,7 @@
                                    </div>
 
                                    <div class="card-footer clearfix" style="display: none;">
-                                       <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">O'quvchi Qo'shish</a>
+                                       <a href="{{route('attendanceIndex')}}" class="btn btn-sm btn-info float-left">Orqaga</a>
                                        <button  class="btn btn-sm btn-success float-right">Saqlash</button>
                                    </div>
 

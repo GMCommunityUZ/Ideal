@@ -38,7 +38,7 @@
 
                         <table  class="table table-bordered table-striped table-responsive-lg" role="grid" aria-describedby="dataTable_info">
                             <thead>
-                            <tr>
+                            <tr class="text-center">
                                 <th>ID</th>
                                 <th>Gurux nomi</th>
                                 <th>O'qituvchisi</th>
@@ -52,7 +52,7 @@
                             </thead>
                             <tbody>
                             @foreach($groups as $group)
-                                <tr>
+                                <tr class="text-center">
                                     <td>{{ $loop->index+1 }}</td>
                                     <td>{{ $group->name }}</td>
                                     <td>@if(isset($group->teacher->name)) {{ $group->teacher->name }}  @else <a class="btn-sm btn-danger">Topilmadi</a> @endif</td>

@@ -1,6 +1,15 @@
 <?php
 
+use App\Models\DateAttendance;
 
+function is_date_group($groupId){
+    $date = date("Y-m-d");
+    $date_attendance = DateAttendance::where('group_id','=',$groupId)->where('date','=',$date)->first();
+    if($date_attendance == null){
+        return true;
+    }
+    return  false;
+}
 if (!function_exists('apiAuth')) {
     function apiAuth()
     {

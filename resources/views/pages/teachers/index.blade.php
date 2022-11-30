@@ -49,7 +49,7 @@
                             </thead>
                             <tbody>
                           @foreach($teachers as $teacher)
-                                    <tr>
+                                    <tr class="text-center">
                                         <td>{{ $loop->index+1 }}</td>
                                         <td>{{ $teacher->name }}</td>
                                         <td>{{$teacher->phone}}</td>
