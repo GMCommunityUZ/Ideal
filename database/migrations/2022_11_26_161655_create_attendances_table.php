@@ -19,7 +19,6 @@ class CreateAttendancesTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('student_id');
             $table->boolean('status');
-            $table->date('create_at');
             $table->timestamps();
         });
     }

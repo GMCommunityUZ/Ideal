@@ -11,13 +11,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class AttendanceController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         abort_if_forbidden('attendance.show');
         if(auth()->user()->hasRole("Super Admin")){
             $groups = Group::all();
         }
         elseif (auth()->user()->hasRole("Teacher")){
-            $groups = Group::where('teacher_id',"=",2)->get();
+            dd($request);
+            $groups = Group::where('teacher_id',auth()->user()->id)->get();
         }
             $students = Student::all();
         return view('pages.attendances.index',compact('groups', 'students'));
@@ -69,5 +70,37 @@ class AttendanceController extends Controller
     public function show(){
         $groups = Group::all();
         return view('pages.attendances.show',compact('groups'));
+    }
+    public function filter(Request $request){
+     $group = $request->group_id;
+     $date = $request->date;
+
+     if(auth()->user()->hasRole('Super Admin'))
+     {
+         $groups = Group::all();
+         if(!DateAttendance::where('group_id','=',$group)->where('date','=',$date)->exists()){
+             message_set('Bu kuni bor yo\'qlama qilinmagan!','error');
+             return view('pages.attendances.show',compact('groups'));
+         }
+         else{
+            $attendances = Attendance::where('group_id',$group)->paginate(5);
+             return view('pages.attendances.show',compact('groups','attendances'));
+         }
+     }
+     elseif(auth()->user()->hasRole('Teacher'))
+     {
+         $groups = Group::where('teacher_id',auth()->user()->id)->get();
+         if(!DateAttendance::where('group_id','=',$group)->where('date','=',$date)->where('teacher_id','=',auth()->user()->id)->exists()){
+             message_set('Bu kuni bor yo\'qlama qilinmagan!','error');
+             return view('pages.attendances.show',compact('groups'));
+         }
+         else{
+             $attendances = Attendance::where('group_id',$group)->paginate(5);
+             return view('pages.attendances.show',compact('groups','attendances'));
+         }
+
+     }
+
+
     }
 }

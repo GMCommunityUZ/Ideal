@@ -33,26 +33,23 @@
                         <table  class="table table-bordered table-striped table-responsive-lg" role="grid" aria-describedby="dataTable_info">
                             <thead>
                             <tr>
-                                <form action="" method="get">
+                                <form action="{{route('filterGroup')}}" method="POST">
+                                    @csrf
                                     <td colspan="">
-                                        <select class="select2"  name="teacher_id" data-placeholder="Guruh" style="width: 100%;">
+                                        <select class="select2"  name="group_id" data-placeholder="Guruh" style="width: 100%;">
                                             @foreach($groups as $group)
                                                 <option value="{{$group->id}}">{{$group->name}}</option>
                                             @endforeach
                                         </select>
                                     </td>
+
                                     <td colspan="">
-
-                                    </td>
-                                    <td colspan="">
-                                        <input type="date" name="name" value="{{old( 'name', request()->name)}}" class=" form-control" placeholder="Ism Familya">
-
-
+                                        <input type="date" name="date"  class=" form-control" >
                                     </td>
 
-                                    <td>
+                                    <td class="text-center">
                                         <div class="btn-group">
-                                            <button type="submit" name="search" class="btn btn-dark" ><i class="fas fa-search"></i> Search</button>
+                                            <button type="submit" class="btn btn-dark" ><i class="fas fa-search"></i> Search</button>
                                             <a href="" class="btn btn-default"><i class="fas fa-recycle"></i> Clear Filters</a>
                                         </div>
 
@@ -61,7 +58,27 @@
                             </tr>
                             </thead>
                             <tbody>
+                               <tr class="text-center">
+                                   <th>Ism Sharif</th>
+                                   <th>Kuni</th>
+                                   <th>Status</th>
+                               </tr>
+                            @if(isset($attendances))
 
+                                @foreach($attendances as $attendance)
+
+                                    <tr class="text-center">
+                                        <td>{{$attendance->students->name}}</td>
+                                        <td>{{date('Y-m-d',strtotime($attendance->created_at))}}</td>
+                                        <td>
+                                            <span class="badge badge-{{$attendance->status?"danger":"success"}}">{{$attendance->status?"Kelmagan":"Kelgan"}} </span>
+                                        </td>
+
+                                    </tr>
+
+                                @endforeach
+
+                            @endif
                             </tbody>
                         </table>
                     </div>

@@ -74,7 +74,7 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview" style="display: {{ (Request::is('attendance*'))||(Request::is('inspection*')) ? 'block':'none'}};">
-                    @can('attendance.index')
+                    @can('attendance.show')
                         <li class="nav-item">
                             <a href="{{ route('attendanceIndex') }}" class="nav-link {{ Request::is('attendance*') ? "active":'' }}">
                                 <i class="fa fa-check"></i>
@@ -84,7 +84,7 @@
                     @endcan
                         @can('attendance.show')
                             <li class="nav-item">
-                                <a href="{{ route('inspectionIndex') }}" class="nav-link {{ Request::is('*') ? "active":'' }}">
+                                <a href="{{ route('inspectionIndex') }}" class="nav-link {{ Request::is('inspection*') ? "active":'' }}">
                                     <i class="fas fa-search"></i>
                                     <p>Guruh Bo'yicha</p>
                                 </a>

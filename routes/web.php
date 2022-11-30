@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'],function (){
     Route::get('attendance',[AttendanceController::class,'index'])->name('attendanceIndex');
     Route::post('attendance/create',[AttendanceController::class,'create'])->name('attendanceCreate');
     Route::get('inspection/group',[AttendanceController::class,'show'])->name('inspectionIndex');
+    Route::post('inspection/group',[AttendanceController::class,'filter'])->name('filterGroup');
     //Teacher
     Route::get('teacher',[TeacherController::class,'index'])->name('teacherIndex');
     Route::get('teacher/add',[TeacherController::class,'add'])->name('teacherAdd');
