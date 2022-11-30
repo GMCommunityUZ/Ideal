@@ -10,4 +10,5 @@ class Attendance extends Model
 {
     use HasFactory;
     public function students(){return $this->belongsTo(Student::class,'student_id','id');}
+    public function groups(){return $this->belongsTo(Group::class,'group_id','id');}
 }
