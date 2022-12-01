@@ -48,7 +48,7 @@
                                         <input type="date" name="date" value="{{old( 'date', request()->date)}}"  class=" form-control" >
                                     </td>
                                     <td >
-                                        <input type="text" name="name" value="{{old('name', request()->name)}}"  class="form-control" >
+                                        <input type="text" name="name" value="{{old('name', request()->name)}}" placeholder="Ism familiya bo'yicha"  class="form-control" >
                                     </td>
 
                                     <td class="text-center">

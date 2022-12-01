@@ -68,7 +68,7 @@ class AttendanceController extends Controller
      if(auth()->user()->hasRole('Super Admin'))
      {
          $groups = Group::all();
-         if(!DateAttendance::where('group_id',$group_id)->where('date','=',$date)->exists()){
+         if(!DateAttendance::where('group_id',$group_id)->where('date',$date)->exists()){
              message_set('Bu kuni bor yo\'qlama qilinmagan!','error');
              return view('pages.attendances.show',compact('groups'));
          }
@@ -83,7 +83,8 @@ class AttendanceController extends Controller
      } elseif(auth()->user()->hasRole('Teacher'))
         {
          $groups = Group::where('teacher_id',auth()->user()->id)->get();
-         if(!DateAttendance::where('group_id','=',$group_id)->where('date','=',$date)->where('teacher_id','=',auth()->user()->id)->exists()){
+         if(!DateAttendance::where('group_id','=',$group_id)
+             ->where('date','=',$date)->exists()){
              message_set('Bu kuni bor yo\'qlama qilinmagan!','error');
              return view('pages.attendances.show',compact('groups'));
          }
