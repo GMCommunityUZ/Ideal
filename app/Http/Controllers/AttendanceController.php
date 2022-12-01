@@ -17,7 +17,6 @@ class AttendanceController extends Controller
             $groups = Group::all();
         }
         elseif (auth()->user()->hasRole("Teacher")){
-            dd($request);
             $groups = Group::where('teacher_id',auth()->user()->id)->get();
         }
             $students = Student::all();
