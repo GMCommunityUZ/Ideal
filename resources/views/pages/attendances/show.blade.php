@@ -35,16 +35,20 @@
                             <tr>
                                 <form action="{{route('filterGroup')}}" method="POST">
                                     @csrf
-                                    <td colspan="">
+                                    <td >
                                         <select class="select2"  name="group_id" data-placeholder="Guruh" style="width: 100%;">
-                                            @foreach($groups as $group)
-                                                <option value="{{$group->id}}">{{$group->name}}</option>
+                                            <option value=""></option>
+                                        @foreach($groups as $group)
+                                                <option {{Request::get('group_id') == $group->id ? 'selected' : '' }} value="{{$group->id}}">{{$group->name}}</option>
                                             @endforeach
                                         </select>
                                     </td>
 
-                                    <td colspan="">
-                                        <input type="date" name="date"  class=" form-control" >
+                                    <td >
+                                        <input type="date" name="date" value="{{old( 'date', request()->date)}}"  class=" form-control" >
+                                    </td>
+                                    <td >
+                                        <input type="text" name="name" value="{{old('name', request()->name)}}"  class="form-control" >
                                     </td>
 
                                     <td class="text-center">
@@ -59,7 +63,7 @@
                             </thead>
                             <tbody>
                                <tr class="text-center">
-                                   <th>Ism Sharif</th>
+                                   <th colspan="2">Ism Sharif</th>
                                    <th>Kuni</th>
                                    <th>Status</th>
                                </tr>
@@ -68,7 +72,7 @@
                                 @foreach($attendances as $attendance)
 
                                     <tr class="text-center">
-                                        <td>{{$attendance->students->name}}</td>
+                                        <td colspan="2">{{$attendance->students->name}}</td>
                                         <td>{{date('Y-m-d',strtotime($attendance->created_at))}}</td>
                                         <td>
                                             <span class="badge badge-{{$attendance->status?"danger":"success"}}">{{$attendance->status?"Kelmagan":"Kelgan"}} </span>

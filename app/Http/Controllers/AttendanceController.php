@@ -25,22 +25,23 @@ class AttendanceController extends Controller
     public function create(Request $request){
         $attenddate = date('Y-m-d');
         $issetgroup = DateAttendance::where('group_id',$request->group_id)->where('date',$attenddate)->first();
+        if ($request->attendances == '' || $request->attendances == null){
+            message_set('Mumkin emas!', 'error', 2);
+            return redirect()->back();
+        }
        if(!$issetgroup == null){
            message_set('Bugun uchun Bor yo\'qlama qilingan!','error');
            return redirect()->route('attendanceIndex');
        }
 
-        else{
-            if($request->has('group_id'))
-                $date = new DateAttendance();
+            $date = new DateAttendance();
             $date->group_id = $request->group_id;
             $date->date = $attenddate;
             $date->status = true;
             $date->save();
             $teacher =User::find(auth()->user()->id);
             foreach($request->attendances as $studentid=>$attendance){
-                if($attendance == "on"){
-                    $attendance_status = true;
+                    $attendance_status = $attendance == "on" ? true : false;
                     $attendancedate =  new Attendance();
                     $attendancedate->group_id = $request->group_id;
                     $attendancedate->user_id = $teacher->id;
@@ -48,58 +49,53 @@ class AttendanceController extends Controller
                     $attendancedate->create_at = $attenddate;
                     $attendancedate->status = $attendance_status;
                     $attendancedate->save();
-
-                }elseif($attendance == "off"){
-                    $attendance_status = false;
-                    $attendancedate =  new Attendance();
-                    $attendancedate->group_id = $request->group_id;
-                    $attendancedate->user_id = $teacher->id;
-                    $attendancedate->student_id = $studentid;
-                    $attendancedate->create_at = $attenddate;
-                    $attendancedate->status = $attendance_status;
-                    $attendancedate->save();
-
-                }
             }
             message_set("Muvofaqiyatli Yakunlandi!",'success');
             return redirect()->route('attendanceIndex');
-        }
-
     }
     public function show(){
-        $groups = Group::all();
+        if (auth()->user()->hasRole('Super Admin')){
+            $groups = Group::all();
+        }else{
+            $groups = Group::where('teacher_id', auth()->user()->id)->get();
+        }
         return view('pages.attendances.show',compact('groups'));
     }
     public function filter(Request $request){
-     $group = $request->group_id;
-     $date = $request->date;
-
+        $group_id = $request->group_id;
+        $date = $request->date;
+        $st_name = $request->name;
      if(auth()->user()->hasRole('Super Admin'))
      {
          $groups = Group::all();
-         if(!DateAttendance::where('group_id','=',$group)->where('date','=',$date)->exists()){
+         if(!DateAttendance::where('group_id',$group_id)->where('date','=',$date)->exists()){
              message_set('Bu kuni bor yo\'qlama qilinmagan!','error');
              return view('pages.attendances.show',compact('groups'));
          }
          else{
-            $attendances = Attendance::where('group_id',$group)->paginate(5);
+             $attendances = Attendance::where('group_id', $group_id);
+             $attendances = $attendances->whereHas('students', function ($query) use($st_name){
+                 $query->where('name', 'like', '%' . $st_name);
+             });
+             $attendances = $attendances->paginate(5);
              return view('pages.attendances.show',compact('groups','attendances'));
          }
-     }
-     elseif(auth()->user()->hasRole('Teacher'))
-     {
+     } elseif(auth()->user()->hasRole('Teacher'))
+        {
          $groups = Group::where('teacher_id',auth()->user()->id)->get();
-         if(!DateAttendance::where('group_id','=',$group)->where('date','=',$date)->where('teacher_id','=',auth()->user()->id)->exists()){
+         if(!DateAttendance::where('group_id','=',$group_id)->where('date','=',$date)->where('teacher_id','=',auth()->user()->id)->exists()){
              message_set('Bu kuni bor yo\'qlama qilinmagan!','error');
              return view('pages.attendances.show',compact('groups'));
          }
          else{
-             $attendances = Attendance::where('group_id',$group)->paginate(5);
+             $attendances = Attendance::where('group_id', $group_id);
+             $attendances = $attendances->whereHas('students', function ($query) use($st_name){
+                 $query->where('name', 'like', '%' . $st_name);
+             });
+             $attendances = $attendances->paginate(5);
              return view('pages.attendances.show',compact('groups','attendances'));
          }
 
      }
-
-
     }
 }

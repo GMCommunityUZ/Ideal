@@ -61,10 +61,12 @@
                                                    @if($group->id == $student->group_id)
                                                    <tr>
                                                        <td>{{$student->name}}</td>
-                                                       <td> <div class="form-group">
-                                                               <label>
+                                                       <td>
+                                                           <div class="form-group">
+                                                               <div class="form-check-input">
                                                                    <input type="hidden" name="attendances[{{$student->id}}]" value="off">
-                                                                   <input class="width:50%" type="checkbox" name="attendances[{{$student->id}}]" value="on"> </label>
+                                                                   <input style="transform: scale(1.6); cursor: pointer" type="checkbox" name="attendances[{{$student->id}}]" value="on">
+                                                               </div>
                                                            </div>
                                                        </td>
                                                    </tr>
