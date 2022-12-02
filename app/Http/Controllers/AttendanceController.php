@@ -64,7 +64,6 @@ class AttendanceController extends Controller
     public function filter(Request $request){
         $group_id = $request->group_id;
         $date = $request->date;
-        $st_name = $request->name;
      if(auth()->user()->hasRole('Super Admin'))
      {
          $groups = Group::all();
@@ -73,11 +72,7 @@ class AttendanceController extends Controller
              return view('pages.attendances.show',compact('groups'));
          }
          else{
-             $attendances = Attendance::where('group_id', $group_id);
-             $attendances = $attendances->whereHas('students', function ($query) use($st_name){
-                 $query->where('name', 'like', '%' . $st_name);
-             });
-             $attendances = $attendances->paginate(5);
+             $attendances = Attendance::where('group_id', $group_id)->where('create_at',$date)->paginate(10);
              return view('pages.attendances.show',compact('groups','attendances'));
          }
      } elseif(auth()->user()->hasRole('Teacher'))
@@ -89,11 +84,7 @@ class AttendanceController extends Controller
              return view('pages.attendances.show',compact('groups'));
          }
          else{
-             $attendances = Attendance::where('group_id', $group_id);
-             $attendances = $attendances->whereHas('students', function ($query) use($st_name){
-                 $query->where('name', 'like', '%' . $st_name);
-             });
-             $attendances = $attendances->paginate(5);
+             $attendances = Attendance::where('group_id', $group_id)->where('create_at',$date)->paginate(5);
              return view('pages.attendances.show',compact('groups','attendances'));
          }
 

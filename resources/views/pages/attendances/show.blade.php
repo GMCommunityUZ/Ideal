@@ -47,9 +47,7 @@
                                     <td >
                                         <input type="date" name="date" value="{{old( 'date', request()->date)}}"  class=" form-control" >
                                     </td>
-                                    <td >
-                                        <input type="text" name="name" value="{{old('name', request()->name)}}" placeholder="Ism familiya bo'yicha"  class="form-control" >
-                                    </td>
+
 
                                     <td class="text-center">
                                         <div class="btn-group">
@@ -63,7 +61,7 @@
                             </thead>
                             <tbody>
                                <tr class="text-center">
-                                   <th colspan="2">Ism Sharif</th>
+                                   <th>Ism Sharif</th>
                                    <th>Kuni</th>
                                    <th>Status</th>
                                </tr>
@@ -72,7 +70,7 @@
                                 @foreach($attendances as $attendance)
 
                                     <tr class="text-center">
-                                        <td colspan="2">{{$attendance->students->name}}</td>
+                                        <td>{{$attendance->students->name}}</td>
                                         <td>{{date('Y-m-d',strtotime($attendance->created_at))}}</td>
                                         <td>
                                             <span class="badge badge-{{$attendance->status?"danger":"success"}}">{{$attendance->status?"Kelmagan":"Kelgan"}} </span>
