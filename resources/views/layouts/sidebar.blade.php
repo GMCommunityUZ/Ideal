@@ -92,7 +92,7 @@
                         @endcan
                         @can('attendance.show')
                             <li class="nav-item">
-                                <a href="{{ route('inspectstudentIndex') }}" class="nav-link {{ Request::is('inspection/student') ? "active":'' }}">
+                                <a href="{{ route('filterShowStudent') }}" class="nav-link {{ Request::is('inspection/student') ? "active":'' }}">
                                     <i class="fas fa-users"></i>
                                     <p>O'quvchi bo'yicha</p>
                                 </a>

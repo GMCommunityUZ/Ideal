@@ -33,71 +33,63 @@
                         <table  class="table table-bordered table-striped table-responsive-lg" role="grid" aria-describedby="dataTable_info">
                             <thead>
                             <tr>
-                                <form action="{{route('filterGroup')}}" method="POST">
+                                <form action="{{route('filterStudent')}}" method="POST">
                                     @csrf
                                     <td >
-                                        <select class="select2"  name="group_id" data-placeholder="Guruh" style="width: 100%;">
+                                        <select class="select2" id="selected_group_id"  name="group_id" data-placeholder="Guruh" style="width: 100%;">
                                             <option value=""></option>
-{{--                                            @foreach($groups as $group)--}}
-{{--                                                <option {{Request::get('group_id') == $group->id ? 'selected' : '' }} value="{{$group->id}}">{{$group->name}}</option>--}}
-{{--                                            @endforeach--}}
+                                            @foreach($groups as $group)
+                                                <option value="{{$group->id}}">{{$group->name}}</option>
+                                            @endforeach
                                         </select>
                                     </td>
                                     <td >
-                                        <select class="select2"  name="group_id" data-placeholder="O'quvchi" style="width: 100%;">
+                                        <select class="select2" id="selected_student_id"  name="student_id" data-placeholder="O'quvchi" style="width: 100%;">
                                             <option value=""></option>
-                                            {{--                                            @foreach($groups as $group)--}}
-                                            {{--                                                <option {{Request::get('group_id') == $group->id ? 'selected' : '' }} value="{{$group->id}}">{{$group->name}}</option>--}}
-                                            {{--                                            @endforeach--}}
+
                                         </select>
                                     </td>
                                     <td >
-                                        <select class="select form-control"  name="group_id"  data-placeholder="O'quvchi" style="width: 100%;">
-                                            <option value="">Hammasi</option>
-                                            <option value="">Yagona</option>
-                                            {{--                                            @foreach($groups as $group)--}}
-                                            {{--                                                <option {{Request::get('group_id') == $group->id ? 'selected' : '' }} value="{{$group->id}}">{{$group->name}}</option>--}}
-                                            {{--                                            @endforeach--}}
+                                        <select class="select2" id="selected_type" name="type" data-placeholder="Turi" style="width: 100%;">
+                                            <option value=""></option>
+                                            <option {{Request::get('type') == 0 ? 'selected' : ''}}  value="0">Hammasi</option>
+                                            <option {{Request::get('type') == 1 ? 'selected' : ''}} value="1">Yagona</option>
                                         </select>
                                     </td>
+                                    <td id="selected_date">
 
-                                    <td >
-                                        <input type="date" name="date" value="{{old( 'date', request()->date)}}"  class=" form-control" >
                                     </td>
-
-
                                     <td class="text-center">
                                         <div class="btn-group">
                                             <button type="submit" class="btn btn-dark" ><i class="fas fa-search"></i> Search</button>
-                                            <a href="" class="btn btn-default"><i class="fas fa-recycle"></i> Clear Filters</a>
+                                            <a href="{{route('filterStudent')}}" class="btn btn-default"><i class="fas fa-recycle"></i> Clear Filters</a>
                                         </div>
-
                                     </td>
                                 </form>
                             </tr>
                             </thead>
                             <tbody>
                             <tr class="text-center">
-                                <th>Ism Sharif</th>
-                                <th>Kuni</th>
+                                <th colspan="2">Ism Sharif</th>
+                                <th colspan="2">Kuni</th>
                                 <th>Status</th>
                             </tr>
-{{--                            @if(isset($attendances))--}}
+                           @if(isset($attendances))
 
-{{--                                @foreach($attendances as $attendance)--}}
+                                @foreach($attendances as $attendance)
 
-{{--                                    <tr class="text-center">--}}
-{{--                                        <td>{{$attendance->students->name}}</td>--}}
-{{--                                        <td>{{date('Y-m-d',strtotime($attendance->created_at))}}</td>--}}
-{{--                                        <td>--}}
-{{--                                            <span class="badge badge-{{$attendance->status?"danger":"success"}}">{{$attendance->status?"Kelmagan":"Kelgan"}} </span>--}}
-{{--                                        </td>--}}
+                                    <tr class="text-center">
+                                        <td colspan="2">{{$attendance->students->name}}</td>
+                                        <td colspan="2">{{date('Y-m-d',strtotime($attendance->created_at))}}</td>
+                                        <td>
+                                            <span class="badge badge-{{$attendance->status?"danger":"success"}}">{{$attendance->status?"Kelmagan":"Kelgan"}} </span>
+                                        </td>
 
-{{--                                    </tr>--}}
+                                    </tr>
 
-{{--                                @endforeach--}}
+                                @endforeach
 
-{{--                            @endif--}}
+                            @endif
                             </tbody>
                         </table>
                     </div>

@@ -8,10 +8,11 @@ use App\Models\Group;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 class AttendanceController extends Controller
 {
-    public function index(Request $request){
+    public function index(){
         abort_if_forbidden('attendance.show');
         if(auth()->user()->hasRole("Super Admin")){
             $groups = Group::all();
@@ -90,7 +91,43 @@ class AttendanceController extends Controller
 
      }
     }
-    public function inspectstudent(Request $request){
-        return view('pages.attendances.student');
+    public function selected( $group_id){
+        echo json_encode(Student::where('group_id', $group_id)->get());
+    }
+    public function filterShowStudent(){
+        $groups = auth()->user()->hasRole('Super Admin') ? Group::all() : Group::where('teacher_id', \auth()->user()->id)->get();
+        return view('pages.attendances.student', compact('groups'));
+
+    }
+    public function filterStudent(Request $request){
+        $group_id = $request->group_id;
+        $student_id = $request->student_id;
+        $date = $request->date;
+        $groups = auth()->user()->hasRole('Super Admin') ? Group::all() : Group::where('teacher_id', \auth()->user()->id)->get();
+        if(auth()->user()->hasRole('Super Admin')){
+            if ($request->date == null){
+                $attendances = Attendance::where('group_id', $group_id);
+                if (isset($student_id)){
+                    $attendances = $attendances->where('student_id', $student_id);
+                }
+                $attendances = $attendances->paginate(10);
+                return view('pages.attendances.student',compact('groups','attendances'));
+            }
+            elseif (isset($date)){
+                if(!DateAttendance::where('group_id',$group_id)->where('date',$date)->exists()){
+                    message_set('Bu kuni bor yo\'qlama qilinmagan!','error',);
+                    return view('pages.attendances.student',compact('groups'));
+                }
+                else{
+                    $attendances = Attendance::where('group_id', $group_id)->where('create_at',$date);
+                    if (isset($student_id)){
+                        $attendances = $attendances->where('student_id', $student_id);
+                    }
+                    $attendances = $attendances->paginate(10);
+                    return view('pages.attendances.student',compact('groups','attendances'));
+                }
+            }
+        }
+        return view('pages.attendances.student', compact('groups'));
     }
 }

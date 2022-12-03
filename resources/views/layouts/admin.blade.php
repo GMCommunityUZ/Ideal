@@ -156,6 +156,37 @@
     function onSelectSetValue(input_name, input_val) {
         $("form :input[name="+input_name+"]").val(input_val);
     }
+
+
+    $(document).ready(function(){
+        $('#selected_group_id').change(function(){
+            var group_id=$(this).val();
+            $.ajax({
+                url:"/inspection/group/" + group_id,
+                method:'GET',
+                success:function(response)
+                {
+                    var response = JSON.parse(response);
+                    $('#selected_student_id').empty();
+                    $('#selected_student_id').append(`<option value=""></option>`);
+                    response.forEach(element => {
+                        $('#selected_student_id').append(`<option value="${ element.id  }">${ element.name }</option>`);
+                    });
+                }
+
+            });
+
+        });
+        $('#selected_type').change(function(){
+            var group_id=$(this).val();
+            if(group_id == 1){
+                $('#selected_date').html(`<input type="date" name="date" class=" form-control" >`);
+            }else{
+                $('#selected_date').html('');
+            }
+        });
+
+    });
 </script>
 @if(session('_message'))
     <script>
