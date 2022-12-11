@@ -69,7 +69,7 @@ class AttendanceController extends Controller
      {
          $groups = Group::all();
          if(!DateAttendance::where('group_id',$group_id)->where('date',$date)->exists()){
-             message_set('Bu kuni bor yo\'qlama qilinmagan!','error',);
+             message_set('Bu kuni bor yo\'qlama qilinmagan!','info',);
              return view('pages.attendances.show',compact('groups'));
          }
          else{
