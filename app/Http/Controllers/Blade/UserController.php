@@ -59,7 +59,6 @@ class UserController extends Controller
             ."\nRoles: ".implode(", ",$request->get('roles') ?? []);
 
         LogWriter::user_activity($activity,'AddingUsers');
-
         return redirect()->route('userIndex');
     }
 

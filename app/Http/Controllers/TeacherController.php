@@ -35,6 +35,7 @@ class TeacherController extends Controller
             'phone'=>$request->phone
         ]);
         $user->save();
+        message_set("O'qtuvchi muvaffaqiyatli yaratildi!",'success');
         return redirect()->route('teacherIndex');
 
     }
@@ -59,13 +60,14 @@ class TeacherController extends Controller
             $user->password = Hash::make($request->get('password'));
         }
         $user->save();
-
+        message_set("O'qtuvchi muvaffaqiyatli o'zgartirildi!",'success');
         return redirect()->route('teacherIndex');
     }
     public function destroy($id){
         abort_if_forbidden('teacher.delete');
         $teacher = User::find($id);
         $teacher->delete();
+        message_set("O'qtuvchi muvaffaqiyatli o'chirildi!",'success');
         return redirect()->route('teacherIndex');
     }
 }
