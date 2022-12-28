@@ -80,4 +80,7 @@ class User extends Authenticatable
     {
         return $date->format('Y-m-d H:i:s');
     }
+    public function groups(){
+        return $this->belongsTo(Group::class, 'id', 'teacher_id');
+    }
 }

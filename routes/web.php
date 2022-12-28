@@ -11,6 +11,7 @@ use App\Http\Controllers\Blade\AmountController;
 use App\Http\Controllers\Blade\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\GraphicController;
 /*
 |--------------------------------------------------------------------------
 | Blade (front-end) Routes
@@ -57,6 +58,7 @@ Route::group(['middleware' => 'auth'],function (){
     Route::get('students/{id}/edit',[StudentController::class,'edit'])->name('studentEdit');
     Route::post('students/update/{id}',[StudentController::class,'update'])->name('studentUpdate');
     Route::delete('students/delete/{id}',[StudentController::class,'destroy'])->name('studentDestroy');
+    Route::get('students/graphic', [StudentController::class, 'graphicAdd'])->name('graphicStudentAdd');
 
     //Amount
     Route::get('amounts',[AmountController::class,'index'])->name('amountIndex');
@@ -65,6 +67,17 @@ Route::group(['middleware' => 'auth'],function (){
     Route::get('amounts/{id}/edit',[AmountController::class,'edit'])->name('amountEdit');
     Route::post('amounts/update/{id}',[AmountController::class,'update'])->name('amountUpdate');
     Route::delete('amounts/delete/{id}',[AmountController::class,'destroy'])->name('amountDestroy');
+    //Graphic
+    Route::get('graphics',[GraphicController::class,'index'])->name('graphicIndex');
+    Route::get('graphics/{id}/students',[GraphicController::class,'graphicStudents'])->name('graphicStudents');
+    Route::get('graphics/{id}/add',[GraphicController::class,'add'])->name('graphicAdd');
+    Route::post('graphics/create',[GraphicController::class,'create'])->name('graphicCreate');
+    Route::get('graphics/{id}/edit',[GraphicController::class,'edit'])->name('graphicEdit');
+    Route::post('graphics/update/{id}',[GraphicController::class,'update'])->name('graphicUpdate');
+    Route::delete('graphics/delete/{id}',[GraphicController::class,'destroy'])->name('graphicDestroy');
+    Route::get('graphics/pay/{id}',[GraphicController::class,'graphicPay'])->name('graphicPay');
+    Route::get('graphics/all', [GraphicController::class, 'graphicAll'])->name('graphicAll');
+    Route::get('graphics/history', [GraphicController::class, 'graphicHistory'])->name('graphicHistory');
     //Groups
     Route::get('groups',[GroupController::class,'index'])->name('groupIndex');
     Route::get('groups/add',[GroupController::class,'add'])->name('groupAdd');

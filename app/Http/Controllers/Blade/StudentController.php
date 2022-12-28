@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Blade;
 
 use App\Http\Controllers\Controller;
+use App\Models\Graphic;
 use App\Models\Group;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
@@ -55,6 +57,35 @@ class StudentController extends Controller
     }
     public function destroy($id){
         Student::where('id', $id)->delete();
+        return redirect()->back();
+    }
+    public function graphicAdd(){
+        $newstudents = Student::whereNotExists(function($query)
+        {
+            $query->select(DB::raw(1))
+                ->from('graphics')->whereMonth('month', now()->format('m'))
+                ->whereRaw('students.id = graphics.student_id');
+        })->get();
+
+        if ($newstudents->count() == 0){
+            message_set('Yangi o\'quvchi mavjud emas!', 'warning', 2);
+            return  redirect()->back();
+        }
+        foreach($newstudents as $student):
+            Graphic::create([
+                'month' => now()->format('Y-m-d'),
+                'student_id' => $student->id,
+                'group_id' => $student->group->id,
+                'paid_amount' => 0,
+                'remaining_amount' => 0,
+                'status' => 'To\'lanmagan',
+                'discount_amount' => 0,
+                'comment'=>'Mavjud emas',
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ]);
+        endforeach;
+        message_set('Qo\'shildi', 'success', 2);
         return redirect()->back();
     }
 }

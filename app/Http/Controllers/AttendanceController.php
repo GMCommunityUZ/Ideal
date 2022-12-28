@@ -103,6 +103,7 @@ class AttendanceController extends Controller
         $group_id = $request->group_id;
         $student_id = $request->student_id;
         $date = $request->date;
+        dd($date);
         $groups = auth()->user()->hasRole('Super Admin') ? Group::all() : Group::where('teacher_id', \auth()->user()->id)->get();
         if(auth()->user()->hasRole('Super Admin')){
             if ($request->date == null){

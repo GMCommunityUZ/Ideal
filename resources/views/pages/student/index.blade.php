@@ -25,13 +25,23 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-
-                        @can('teacher.show')
+                        @if(auth()->user()->hasRole('Super Admin'))
+                            <div class="btn-group float-right">
+                                <a href="{{route('studentAdd')}}" class="btn btn-success btn-sm ">
+                                    <span class="fas fa-plus-circle"></span>
+                                    Qo'shish
+                                </a>
+                                <a href="{{route('graphicStudentAdd')}}" class="btn btn-warning btn-sm">
+                                    <span class="fas fa-table "></span>
+                                    Grafikka qo'shish
+                                </a>
+                            </div>
+                        @else
                             <a href="{{route('studentAdd')}}" class="btn btn-success btn-sm float-right">
                                 <span class="fas fa-plus-circle"></span>
                                 Qo'shish
                             </a>
-                        @endcan
+                        @endif
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">

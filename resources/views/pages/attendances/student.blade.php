@@ -46,7 +46,6 @@
                                     <td >
                                         <select class="select2" id="selected_student_id"  name="student_id" data-placeholder="O'quvchi" style="width: 100%;">
                                             <option value=""></option>
-
                                         </select>
                                     </td>
                                     <td >

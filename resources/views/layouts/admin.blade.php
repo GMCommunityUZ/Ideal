@@ -173,19 +173,24 @@
                         $('#selected_student_id').append(`<option value="${ element.id  }">${ element.name }</option>`);
                     });
                 }
-
             });
-
         });
         $('#selected_type').change(function(){
             var group_id=$(this).val();
             if(group_id == 1){
-                $('#selected_date').html(`<input type="date" name="date" class=" form-control" >`);
+                $('#selected_date').html(`<input type="date" name="date" class=" form-control date">`);
+                var date = $('.date').val();
+                $.ajax({
+                    url: "/inspection/student/",
+                    method: 'GET',
+                    data: {
+                        'date': date,
+                    }
+                });
             }else{
                 $('#selected_date').html('');
             }
         });
-
     });
 </script>
 @if(session('_message'))

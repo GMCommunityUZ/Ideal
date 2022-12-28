@@ -47,7 +47,7 @@
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview" style="display: {{ (Request::is('amount*')) ? 'block':'none'}};">
+                <ul class="nav nav-treeview" style="display: {{ (Request::is('amount*') || Request::is('graphic*') || Request::is('graphic*/all') || Request::is('graphic*/history')) ? 'block':'none'}};">
                     @can('teacher.show')
                         <li class="nav-item">
                             <a href="{{ route('amountIndex') }}" class="nav-link {{ Request::is('amount*') ? "active":'' }}">
@@ -56,6 +56,26 @@
                             </a>
                         </li>
                     @endcan
+                        @can('Super Admin')
+                            <li class="nav-item">
+                                <a href="{{ route('graphicIndex') }}" class="nav-link {{ Request::is('graphics') ? "active":'' }}">
+                                    <i class="fas fa-comment-dollar"></i>
+                                    <p>Grafik</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('graphicAll') }}" class="nav-link {{ Request::is('graphics/all') ? "active":'' }}">
+                                    <i class="fas fa-comment-dollar"></i>
+                                    <p>Umumiy grafik</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('graphicHistory') }}" class="nav-link {{ Request::is('graphics/history') ? "active":'' }}">
+                                    <i class="fas fa-comment-dollar"></i>
+                                    <p>Grafik tarixi</p>
+                                </a>
+                            </li>
+                        @endcan
                 </ul>
             </li>
         @endcanany
@@ -73,10 +93,10 @@
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview" style="display: {{ (Request::is('attendance*'))||(Request::is('inspection*')) ? 'block':'none'}};">
+                <ul class="nav nav-treeview" style="display: {{ (Request::is('attendance*'))||(Request::is('inspection*') ) ? 'block':'none'}};">
                     @can('attendance.show')
                         <li class="nav-item">
-                            <a href="{{ route('attendanceIndex') }}" class="nav-link {{ Request::is('attendance*') ? "active":'' }}">
+                            <a href="{{ route('attendanceIndex') }}" class="nav-link {{ Request::is('attendance*')  ? "active":'' }}">
                                 <i class="fa fa-check"></i>
                                 <p>Bor yo'qlama</p>
                             </a>
@@ -98,6 +118,7 @@
                                 </a>
                             </li>
                         @endcan
+
                 </ul>
             </li>
         @endcanany
