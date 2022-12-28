@@ -15,7 +15,7 @@ class CreateDateAttendancesTable extends Migration
     {
         Schema::create('date_attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('group_id')->constrained();
+            $table->foreignId('group_id')->constrained()->onDelete('cascade');
             $table->date('date');
             $table->boolean('status');
             $table->timestamps();

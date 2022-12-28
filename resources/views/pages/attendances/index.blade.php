@@ -82,7 +82,7 @@
                                        <a href="{{route('attendanceIndex')}}" class="btn btn-sm btn-info float-left">Orqaga</a>
                                        <button  class="btn btn-sm btn-success float-right">Saqlash</button>
                                    </div>
-
+                                     <!-- comment add  -->
                                </div>
 
                             </form>
