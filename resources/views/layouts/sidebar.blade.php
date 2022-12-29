@@ -48,7 +48,7 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview" style="display: {{ (Request::is('amount*') || Request::is('graphic*') || Request::is('graphic*/all') || Request::is('graphic*/history')) ? 'block':'none'}};">
-                    @can('teacher.show')
+                    @can('Super Admin')
                         <li class="nav-item">
                             <a href="{{ route('amountIndex') }}" class="nav-link {{ Request::is('amount*') ? "active":'' }}">
                                 <i class="fas fa-money-bill-alt"></i>
@@ -82,8 +82,7 @@
     </ul>
     <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
         @canany([
-          'teacher.show',
-
+          'attendance.show',
        ])
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link {{ (Request::is('attendance')) || (Request::is('inspection'))? 'active':''}}">
