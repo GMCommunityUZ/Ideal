@@ -34,6 +34,7 @@ Route::get('/', function (){
 // Web pages
 Route::group(['middleware' => 'auth'],function (){
 
+
     //Attendance
     Route::get('attendance',[AttendanceController::class,'index'])->name('attendanceIndex');
     Route::post('attendance/create',[AttendanceController::class,'create'])->name('attendanceCreate');
