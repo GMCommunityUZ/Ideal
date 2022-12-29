@@ -45,6 +45,7 @@ class GroupController extends Controller
             'ends_at'=>$request->input('ends_at'),
         ]);
         $group->save();
+        message_set('Guruh muvaffaqiyatli yaratildi','success');
         return redirect()->route('groupIndex');
     }
     public function edit($id){
@@ -73,6 +74,7 @@ class GroupController extends Controller
         $group->starts_at = $request->input('starts_at');
         $group->ends_at = $request->input('ends_at');
         $group->save();
+        message_set('Guruh muvaffaqiyatli o\'zgartirildi','success');
         return redirect()->route('groupIndex');
     }
     public function destroy($id){
@@ -96,7 +98,7 @@ class GroupController extends Controller
         }elseif(DateAttendance::where('group_id',$id)->exists()){
             DateAttendance::where('group_id',$id)->delete();
         }
-
+        message_set('Guruh muvaffaqiyati o\'chirildi','success');
         return redirect()->back();
     }
 }

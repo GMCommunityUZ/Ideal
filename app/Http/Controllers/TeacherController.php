@@ -19,7 +19,7 @@ class TeacherController extends Controller
 
     public function create(Request $request){
 
-        abort_if_forbidden('teacher.create');
+        abort_if_forbidden('teacher.add');
         $this->validate($request,[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],

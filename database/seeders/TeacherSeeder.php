@@ -44,5 +44,6 @@ class TeacherSeeder extends Seeder
             ]
         ]);
 
+
     }
 }

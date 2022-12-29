@@ -83,7 +83,7 @@
     <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
         @canany([
           'teacher.show',
-          'attendance.show'
+
        ])
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link {{ (Request::is('attendance')) || (Request::is('inspection'))? 'active':''}}">
