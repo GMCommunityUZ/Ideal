@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\GraphicExport;
 use App\Models\Graphic;
 use App\Models\Group;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Excel;
 
 class GraphicController extends Controller
 {
@@ -17,7 +20,7 @@ class GraphicController extends Controller
         return view('pages.graphic.index', compact('teachers', 'groups'));
     }
     public function graphicStudents($id){
-        $graphics = Graphic::whereMonth('month', now()->format('m'))->where('group_id', $id)->paginate(7);
+        $graphics = Graphic::whereMonth('month', now()->format('m'))->where('group_id', $id)->get();
         $group = Group::where('id', $id)->first();
         return view('pages.graphic.students', compact('group', 'graphics'));
     }
@@ -147,5 +150,11 @@ class GraphicController extends Controller
         endforeach;
         $graphics = $graphics->paginate('10');
         return view('pages.graphic.history', compact('graphics', 'groups'));
+    }
+    public function export()
+    {
+        $excel = App::make('excel');
+
+        return $excel->download(new GraphicExport, 'graphic.xlsx');
     }
 }

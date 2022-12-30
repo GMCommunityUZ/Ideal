@@ -79,6 +79,7 @@ Route::group(['middleware' => 'auth'],function (){
     Route::get('graphics/pay/{id}',[GraphicController::class,'graphicPay'])->name('graphicPay');
     Route::get('graphics/all', [GraphicController::class, 'graphicAll'])->name('graphicAll');
     Route::get('graphics/history', [GraphicController::class, 'graphicHistory'])->name('graphicHistory');
+    Route::get('graphic-export', [GraphicController::class, 'export'])->name('excelExport');
     //Groups
     Route::get('groups',[GroupController::class,'index'])->name('groupIndex');
     Route::get('groups/add',[GroupController::class,'add'])->name('groupAdd');

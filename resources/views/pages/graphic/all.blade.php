@@ -77,8 +77,8 @@
                             @foreach($graphics as $graphic)
                                 <tbody>
                                 <td>{{$loop->index+1}}</td>
-                                <td colspan="2">{{$graphic->student->name}}</td>
-                                <td colspan="2">{{$graphic->group->name}}</td>
+                                <td colspan="2">@if(isset($graphic->student)) {{$graphic->student->name}} @else Mavjud emas @endif</td>
+                                <td colspan="2">@if(isset($graphic->group)){{$graphic->group->name}} @else Mavjud emas @endif </td>
                                 <td >{{$graphic->remaining_amount}} so'm</td>
                                 <td >{{$graphic->discount_amount}} so'm</td>
                                 @if($graphic->status == 'To\'liq emas')

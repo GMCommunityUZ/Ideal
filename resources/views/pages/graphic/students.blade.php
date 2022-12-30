@@ -38,7 +38,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <!-- Data table -->
-                        <table  class="table table-bordered table-striped table-responsive-lg" role="grid" aria-describedby="dataTable_info">
+                        <table  class="table table-bordered table-striped table-responsive-lg" id="tbl1" role="grid" aria-describedby="dataTable_info">
                             <thead>
                             <tr>
                                 <th>№</th>
@@ -55,7 +55,7 @@
                             @foreach($graphics as $graphic)
                             <tbody>
                                 <td>{{$loop->index+1}}</td>
-                                <td>{{$graphic->student->name}}</td>
+                                <td >@if(isset($graphic->student)) {{$graphic->student->name}} @else Mavjud emas @endif</td>
                                 <td>{{date('F', strtotime($graphic->month))}}</td>
                                 <td>{{$graphic->paid_amount}} so'm</td>
                                 <td>{{$graphic->discount_amount}} so'm</td>
@@ -89,7 +89,12 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer mt-3 ">
-                        {!! $graphics->links() !!}
+                        <div class="float-left">
+                        </div>
+                        <div class="float-right">
+{{--                            <button onclick="tablesToExcel(['tbl1'], ['Sheet1'], 'export.xls', 'Excel')" class="btn btn-success btn-sm mt-4"><i class="fas fa-download"></i>  Export Exel</button>--}}
+                            <a href="{{route('excelExport')}}" class="btn btn-success btn-sm mt-4"><i class="fas fa-download"></i>  Export Exel</a>
+                        </div>
                     </div>
                 </div>
                 <!-- /.card -->
@@ -100,3 +105,4 @@
     </section>
     <!-- /.content -->
 @endsection
+{{--@include('pages.modalJs')--}}
