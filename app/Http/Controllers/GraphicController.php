@@ -119,7 +119,7 @@ class GraphicController extends Controller
             ]);
             message_set('To\'landi', 'success', 2);
         }else{
-            message_set('To\'lov allaqachon qilinan!', 'warning', 2);
+            message_set('Amal bajarilmadi, mumkin emas!', 'warning', 2);
         }
         return redirect()->back();
     }
@@ -151,10 +151,10 @@ class GraphicController extends Controller
         $graphics = $graphics->paginate('10');
         return view('pages.graphic.history', compact('graphics', 'groups'));
     }
-    public function export()
+    public function export($id)
     {
+        $graphics = Graphic::whereMonth('month', now()->format('m'))->where('group_id', $id)->get();
         $excel = App::make('excel');
-
-        return $excel->download(new GraphicExport, 'graphic.xlsx');
+        return $excel->download(new GraphicExport($graphics), 'graphic.xlsx');
     }
 }

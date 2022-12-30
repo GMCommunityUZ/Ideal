@@ -92,8 +92,7 @@
                         <div class="float-left">
                         </div>
                         <div class="float-right">
-{{--                            <button onclick="tablesToExcel(['tbl1'], ['Sheet1'], 'export.xls', 'Excel')" class="btn btn-success btn-sm mt-4"><i class="fas fa-download"></i>  Export Exel</button>--}}
-                            <a href="{{route('excelExport')}}" class="btn btn-success btn-sm mt-4"><i class="fas fa-download"></i>  Export Exel</a>
+                            <a href="{{route('excelExport', $group->id)}}" class="btn btn-success btn-sm mt-4"><i class="fas fa-download"></i>  Export Exel</a>
                         </div>
                     </div>
                 </div>
@@ -105,4 +104,3 @@
     </section>
     <!-- /.content -->
 @endsection
-{{--@include('pages.modalJs')--}}
