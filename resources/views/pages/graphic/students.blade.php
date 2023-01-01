@@ -8,11 +8,12 @@
                 <div class="col-sm-6">
                     <h5 >O'qituvchi: {{ $group->teacher->name }}</h5>
                     <h5 >Guruh: {{ $group->name }}</h5>
-                    <h5 >Narx: {{ $group->amount->price }} so'm</h5>
+                    <h5 >Jami summa: {{ $amount }} so'm</h5>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Bosh sahifa</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('graphic') }}">Graphic</a></li>
                         <li class="breadcrumb-item active">O'quvchilar ro'yhati</li>
                     </ol>
                 </div>
@@ -90,6 +91,7 @@
                     <!-- /.card-body -->
                     <div class="card-footer mt-3 ">
                         <div class="float-left">
+                            {!! $graphics->links() !!}
                         </div>
                         <div class="float-right">
                             <a href="{{route('excelExport', $group->id)}}" class="btn btn-success btn-sm mt-4"><i class="fas fa-download"></i>  Export Exel</a>

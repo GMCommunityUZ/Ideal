@@ -20,9 +20,10 @@ class GraphicController extends Controller
         return view('pages.graphic.index', compact('teachers', 'groups'));
     }
     public function graphicStudents($id){
-        $graphics = Graphic::whereMonth('month', now()->format('m'))->where('group_id', $id)->get();
+        $graphics = Graphic::whereMonth('month', now()->format('m'))->where('group_id', $id)->paginate(7);
+        $amount = $graphics->sum('paid_amount');
         $group = Group::where('id', $id)->first();
-        return view('pages.graphic.students', compact('group', 'graphics'));
+        return view('pages.graphic.students', compact('group', 'graphics', 'amount'));
     }
     public function add($id){
         $students = Student::where('group_id', $id)->whereNotExists(function($query)

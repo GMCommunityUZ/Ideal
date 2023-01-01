@@ -24,7 +24,7 @@ class TeacherController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phone'=>['required']
+            'phone' => ['required', 'string', 'min:9', 'max:9'],
         ]);
 
         $user = User::create([
