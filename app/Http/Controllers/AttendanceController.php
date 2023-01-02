@@ -14,6 +14,7 @@ class AttendanceController extends Controller
 {
     public function index(){
         abort_if_forbidden('attendance.show');
+
         if(auth()->user()->hasRole("Super Admin")){
             $groups = Group::all();
         }

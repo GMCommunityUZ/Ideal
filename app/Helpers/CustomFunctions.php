@@ -1,7 +1,18 @@
 <?php
 
+use App\Models\Attendance;
 use App\Models\DateAttendance;
 
+function is_status($groupId,$studentId){
+    $date = date("Y-m-d");
+    $is_status = Attendance::where('group_id','=',$groupId)->where('student_id','=',$studentId)->where('create_at','=',$date)->first();
+    if($is_status !== null){
+        return $is_status->status;
+    }
+    else{
+        return false;
+    }
+}
 function is_date_group($groupId){
     $date = date("Y-m-d");
     $date_attendance = DateAttendance::where('group_id','=',$groupId)->where('date','=',$date)->first();
