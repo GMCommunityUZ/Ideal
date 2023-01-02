@@ -103,17 +103,9 @@
                     @endcan
                         @can('attendance.show')
                             <li class="nav-item">
-                                <a href="{{ route('inspectionIndex') }}" class="nav-link {{ Request::is('inspection/group') ? "active":'' }}">
-                                    <i class="fas fa-search"></i>
-                                    <p>Guruh Bo'yicha</p>
-                                </a>
-                            </li>
-                        @endcan
-                        @can('attendance.show')
-                            <li class="nav-item">
-                                <a href="{{ route('filterShowStudent') }}" class="nav-link {{ Request::is('inspection/student') ? "active":'' }}">
+                                <a href="{{ route('filterStudent') }}" class="nav-link {{ Request::is('inspection/student') ? "active":'' }}">
                                     <i class="fas fa-users"></i>
-                                    <p>O'quvchi bo'yicha</p>
+                                    <p>Davomat filter</p>
                                 </a>
                             </li>
                         @endcan
