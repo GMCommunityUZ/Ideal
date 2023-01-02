@@ -55,14 +55,7 @@ class AttendanceController extends Controller
             message_set("Muvofaqiyatli Yakunlandi!",'success');
             return redirect()->route('attendanceIndex');
     }
-    public function show(){
-        if (auth()->user()->hasRole('Super Admin')){
-            $groups = Group::all();
-        }else{
-            $groups = Group::where('teacher_id', auth()->user()->id)->get();
-        }
-        return view('pages.attendances.show',compact('groups'));
-    }
+
     public function filterStudent(Request $request){
         $searches = ['name', 'group_id', 'created_at', 'status'];
         $groups = auth()->user()->hasRole('Super Admin') ? Group::all() : Group::where('teacher_id', \auth()->user()->id)->get();
