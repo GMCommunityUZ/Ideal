@@ -53,11 +53,8 @@
                                         </select>
                                     </td>
                                     <td>
-<<<<<<< HEAD
                                         <input class="form-control" type="date" name="created_at" value="{{old('Y-m-d' , request()->created_at)}}">
-=======
                                         <input class="form-control" type="date" name="create_at" value="{{old('Y-m-d' , request()->date)}}">
->>>>>>> 12d0b1ce880695337ebcdd196bcbb43c6b4b3977
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group">
