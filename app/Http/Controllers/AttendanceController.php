@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\DB;
 class AttendanceController extends Controller
 {
     public function index(){
-        abort_if_forbidden('attendance.show');
+        abort_if_forbidden('teacher.show');
 
         if(auth()->user()->hasRole("Super Admin")){
             $groups = Group::all();
         }
         elseif (auth()->user()->hasRole("Teacher")){
-            $groups = Group::where('teacher_id',auth()->user()->id)->get();
+            $groups = Group::where('teacher_id', auth()->user()->id)->get();
         }
             $students = Student::all();
         return view('pages.attendances.index',compact('groups', 'students'));
@@ -41,12 +41,12 @@ class AttendanceController extends Controller
             $date->date = $attenddate;
             $date->status = true;
             $date->save();
-            $teacher =User::find(auth()->user()->id);
+            $teacher = Group::where('id', $request->group_id)->first();
             foreach($request->attendances as $studentid=>$attendance){
                     $attendance_status = $attendance == "on" ? true : false;
                     $attendancedate =  new Attendance();
                     $attendancedate->group_id = $request->group_id;
-                    $attendancedate->user_id = $teacher->id;
+                    $attendancedate->user_id = $teacher->teacher_id;
                     $attendancedate->student_id = $studentid;
                     $attendancedate->create_at = $attenddate;
                     $attendancedate->status = $attendance_status;
@@ -67,9 +67,9 @@ class AttendanceController extends Controller
                 });
             }
         endforeach;
-        if(!auth()->user()->hasRole('Super Admin'))
+        if(auth()->user()->hasRole('Teacher'))
         {
-        $attendances = $attendances->where('user_id', \auth()->user()->id);
+        $attendances = $attendances->where('user_id', auth()->user()->id);
             foreach ($searches as $search):
                 if ($request->has($search) && strlen($request->$search)){
                     $attendances = $attendances->whereHas('students', function ($query) use ($request, $search) {

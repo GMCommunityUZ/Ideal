@@ -35,7 +35,7 @@
                             <tr>
                                 <form action="{{route('filterStudent')}}" method="GET">
                                     <td >
-                                        <input type="text" placeholder="Ism familiya" value="{{old('name', request()->name)}}" name="name" class="form-control">
+                                        <input type="text" placeholder="F.I.O" value="{{old('name', request()->name)}}" name="name" class="form-control">
                                     </td>
                                     <td colspan="2">
                                         <select class="select2"  name="group_id" data-placeholder="Guruh" style="width: 100%;">

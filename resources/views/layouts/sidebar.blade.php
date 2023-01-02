@@ -37,7 +37,7 @@
     </ul>
     <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
         @canany([
-          'teacher.show'
+          'Super Admin'
        ])
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link {{ (Request::is('amount*'))? 'active':''}}">
@@ -82,7 +82,7 @@
     </ul>
     <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
         @canany([
-          'attendance.show',
+          'teacher.show',
        ])
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link {{ (Request::is('attendance')) || (Request::is('inspection'))? 'active':''}}">
@@ -93,7 +93,7 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview" style="display: {{ (Request::is('attendance*'))||(Request::is('inspection*') ) ? 'block':'none'}};">
-                    @can('attendance.show')
+                    @can('teacher.show')
                         <li class="nav-item">
                             <a href="{{ route('attendanceIndex') }}" class="nav-link {{ Request::is('attendance*')  ? "active":'' }}">
                                 <i class="fa fa-check"></i>
@@ -101,7 +101,7 @@
                             </a>
                         </li>
                     @endcan
-                        @can('attendance.show')
+                        @can('teacher.show')
                             <li class="nav-item">
                                 <a href="{{ route('filterStudent') }}" class="nav-link {{ Request::is('inspection/student') ? "active":'' }}">
                                     <i class="fas fa-users"></i>

@@ -75,7 +75,6 @@
                                                </tbody>
                                            </table>
                                        </div>
-
                                    </div>
                                     @if(is_date_group($group->id))
                                    <div class="card-footer clearfix" style="display: none;">
