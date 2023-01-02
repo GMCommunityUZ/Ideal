@@ -54,7 +54,6 @@
                                     </td>
                                     <td>
                                         <input class="form-control" type="date" name="created_at" value="{{old('Y-m-d' , request()->created_at)}}">
-                                        <input class="form-control" type="date" name="create_at" value="{{old('Y-m-d' , request()->date)}}">
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group">
