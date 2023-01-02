@@ -63,40 +63,6 @@ class AttendanceController extends Controller
         }
         return view('pages.attendances.show',compact('groups'));
     }
-    public function filter(Request $request){
-        $group_id = $request->group_id;
-        $date = $request->date;
-     if(auth()->user()->hasRole('Super Admin'))
-     {
-         $groups = Group::all();
-         if(!DateAttendance::where('group_id',$group_id)->where('date',$date)->exists()){
-             message_set('Bu kuni bor yo\'qlama qilinmagan!','info',);
-             return view('pages.attendances.show',compact('groups'));
-         }
-         else{
-             $attendances = Attendance::where('group_id', $group_id)->where('create_at',$date)->paginate(10);
-             return view('pages.attendances.show',compact('groups','attendances'));
-         }
-     } elseif(auth()->user()->hasRole('Teacher'))
-        {
-         $groups = Group::where('teacher_id',auth()->user()->id)->get();
-         if(!DateAttendance::where('group_id','=',$group_id)
-             ->where('date','=',$date)->exists()){
-             message_set('Bu kuni bor yo\'qlama qilinmagan!','error');
-             return view('pages.attendances.show',compact('groups'));
-         }
-         else{
-             $attendances = Attendance::where('group_id', $group_id)->where('create_at',$date)->paginate(5);
-             return view('pages.attendances.show',compact('groups','attendances'));
-         }
-
-     }
-    }
-    public function filterShowStudent(){
-        $groups = auth()->user()->hasRole('Super Admin') ? Group::all() : Group::where('teacher_id', \auth()->user()->id)->get();
-        return view('pages.attendances.student', compact('groups'));
-
-    }
     public function filterStudent(Request $request){
         $searches = ['name', 'group_id', 'created_at', 'status'];
         $groups = auth()->user()->hasRole('Super Admin') ? Group::all() : Group::where('teacher_id', \auth()->user()->id)->get();

@@ -3,7 +3,7 @@
 use App\Models\Attendance;
 use App\Models\DateAttendance;
 
-function is_status($groupId,$studentId){
+function is_status($groupId, $studentId){
     $date = date("Y-m-d");
     $is_status = Attendance::where('group_id','=',$groupId)->where('student_id','=',$studentId)->where('create_at','=',$date)->first();
     if($is_status !== null){

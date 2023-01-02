@@ -65,7 +65,7 @@
                                                            <div class="form-group">
                                                                <div class="form-check-input">
                                                                    <input type="hidden" name="attendances[{{$student->id}}]" value="off">
-                                                                   <input {{is_status($group->id,$student->id)?"checked":"disabled "}}  style="transform: scale(1.6); cursor: pointer" type="checkbox" name="attendances[{{$student->id}}]" value="on">
+                                                                   <input   style="transform: scale(1.6); cursor: pointer" type="checkbox" name="attendances[{{$student->id}}]" value="on">
                                                                </div>
                                                            </div>
                                                        </td>
