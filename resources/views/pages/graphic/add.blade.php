@@ -13,7 +13,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Bosh sahifa</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('graphicIndex') }}">Grafik</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('graphicStudents') }}">O'quvchilar ro'yxati</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('graphicStudents', $id) }}">O'quvchilar ro'yxati</a></li>
                         <li class="breadcrumb-item active">Qo'shish</li>
                     </ol>
                 </div>
@@ -71,7 +71,7 @@
                             <input type="hidden" name="group_id" value="{{$id}}">
                             <div class="form-group">
                                 <button type="submit" class="btn btn-success float-right">Saqlash</button>
-                                <a href="{{ route('graphicStudents') }}" class="btn btn-default float-left">Orqaga</a>
+                                <a href="{{ route('graphicStudents', $id) }}" class="btn btn-default float-left">Orqaga</a>
                             </div>
                         </form>
                     </div>

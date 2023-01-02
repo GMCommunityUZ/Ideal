@@ -13,16 +13,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Uy</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('graphicIndex') }}">Grafik</a></li>
-<<<<<<< HEAD
                         <li class="breadcrumb-item"><a href="{{ route('graphicStudents',$id) }}">O'quvchilar ro'yxati</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('graphicStudents', $id) }}">O'quvchilar ro'yxati</a></li>
-=======
-
-                        <li class="breadcrumb-item"><a href="{{ route('graphicStudents',$id) }}">O'quvchilar ro'yxati</a></li>
-
-                        <li class="breadcrumb-item"><a href="{{ route('graphicStudents', $id) }}">O'quvchilar ro'yxati</a></li>
-
->>>>>>> 12d0b1ce880695337ebcdd196bcbb43c6b4b3977
                         <li class="breadcrumb-item active">Tahrirlash</li>
                     </ol>
                 </div>
