@@ -98,7 +98,7 @@ class AttendanceController extends Controller
 
     }
     public function filterStudent(Request $request){
-        $searches = ['name', 'group_id', 'created_at', 'status'];
+        $searches = ['name', 'group_id', 'create_at', 'status'];
         $groups = auth()->user()->hasRole('Super Admin') ? Group::all() : Group::where('teacher_id', \auth()->user()->id)->get();
         $attendances = Attendance::with('students');
         foreach ($searches as $search):

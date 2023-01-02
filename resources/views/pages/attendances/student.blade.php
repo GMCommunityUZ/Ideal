@@ -40,7 +40,7 @@
                                     <td colspan="2">
                                         <select class="select2"  name="group_id" data-placeholder="Guruh" style="width: 100%;">
                                             <option value=""></option>
-                                            @foreach($groups as $group)
+                                            @foreach($groups   as $group)
                                                 <option {{Request::get('group_id') == $group->id ? 'selected' : ''}} value="{{$group->id}}">{{$group->name}}</option>
                                             @endforeach
                                         </select>
@@ -53,7 +53,7 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <input class="form-control" type="date" name="date" value="{{old('Y-m-d' , request()->date)}}">
+                                        <input class="form-control" type="date" name="create_at" value="{{old('Y-m-d' , request()->date)}}">
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group">
