@@ -91,44 +91,35 @@ class AttendanceController extends Controller
 
      }
     }
-    public function selected( $group_id){
-        echo json_encode(Student::where('group_id', $group_id)->get());
-    }
     public function filterShowStudent(){
         $groups = auth()->user()->hasRole('Super Admin') ? Group::all() : Group::where('teacher_id', \auth()->user()->id)->get();
         return view('pages.attendances.student', compact('groups'));
 
     }
     public function filterStudent(Request $request){
-        $group_id = $request->group_id;
-        $student_id = $request->student_id;
-        $date = $request->date;
-        dd($date);
+        $searches = ['name', 'group_id', 'created_at', 'status'];
         $groups = auth()->user()->hasRole('Super Admin') ? Group::all() : Group::where('teacher_id', \auth()->user()->id)->get();
-        if(auth()->user()->hasRole('Super Admin')){
-            if ($request->date == null){
-                $attendances = Attendance::where('group_id', $group_id);
-                if (isset($student_id)){
-                    $attendances = $attendances->where('student_id', $student_id);
-                }
-                $attendances = $attendances->paginate(10);
-                return view('pages.attendances.student',compact('groups','attendances'));
+        $attendances = Attendance::with('students');
+        foreach ($searches as $search):
+            if ($request->has($search) && strlen($request->$search)){
+                $attendances = $attendances->whereHas('students', function ($query) use ($request, $search) {
+                    $query->where($search, 'like', '%' . $request->$search . '%');
+                });
             }
-            elseif (isset($date)){
-                if(!DateAttendance::where('group_id',$group_id)->where('date',$date)->exists()){
-                    message_set('Bu kuni bor yo\'qlama qilinmagan!','error',);
-                    return view('pages.attendances.student',compact('groups'));
+        endforeach;
+        if(!auth()->user()->hasRole('Super Admin'))
+        {
+        $attendances = $attendances->where('user_id', \auth()->user()->id);
+            foreach ($searches as $search):
+                if ($request->has($search) && strlen($request->$search)){
+                    $attendances = $attendances->whereHas('students', function ($query) use ($request, $search) {
+                        $query->where($search, 'like', '%' . $request->$search . '%');
+                    });
                 }
-                else{
-                    $attendances = Attendance::where('group_id', $group_id)->where('create_at',$date);
-                    if (isset($student_id)){
-                        $attendances = $attendances->where('student_id', $student_id);
-                    }
-                    $attendances = $attendances->paginate(10);
-                    return view('pages.attendances.student',compact('groups','attendances'));
-                }
-            }
+            endforeach;
         }
-        return view('pages.attendances.student', compact('groups'));
-    }
+        $attendances = $attendances->paginate(10);
+        return view('pages.attendances.student', compact('groups', 'attendances'));
+        }
+
 }

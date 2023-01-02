@@ -13,7 +13,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Bosh sahifa</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('graphic') }}">Graphic</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('graphicIndex') }}">Graphic</a></li>
                         <li class="breadcrumb-item active">O'quvchilar ro'yhati</li>
                     </ol>
                 </div>
@@ -75,7 +75,7 @@
                                             @csrf
                                             <div class="btn-group">
                                                 @can('user.edit')
-                                                    <a href="{{ route('graphicEdit',$graphic->id) }}" type="button" class="btn btn-info btn-sm"> <i class="fas fa-edit"></i></a>
+                                                    <a href="{{ route('graphicEdit', $graphic->id) }}" type="button" class="btn btn-info btn-sm"> <i class="fas fa-edit"></i></a>
                                                 @endcan
                                                 <input name="_method" type="hidden" value="DELETE">
                                                 <button type="button" class="btn btn-danger btn-sm" onclick="if (confirm('Ishonchingiz komilmi?')) { this.form.submit() } "> <i class="fas fa-trash-alt"></i></button>
