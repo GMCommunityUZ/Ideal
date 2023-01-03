@@ -116,7 +116,7 @@ class RegisterController extends Controller
                 ]);
             }
 
-            $user->assignRole('Super admin');
+            $user->assignRole('Super Admin');
         }
 
         return $user;
