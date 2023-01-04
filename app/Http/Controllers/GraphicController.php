@@ -37,7 +37,7 @@ class GraphicController extends Controller
     public function create(Request $request){
         $this->validate($request, [
             'student_id'=>'required',
-            'paid_amount'=>['required',  'min:5', 'max:6']
+            'paid_amount'=>['required']
         ]);
         $st_id = Group::where('id', $request->group_id)->first();
         $discount_amount = $request->discount_amount != '' ? $request->discount_amount : 0;
@@ -73,7 +73,7 @@ class GraphicController extends Controller
     public function update(Request $request, $id){
         $this->validate($request, [
             'student_id'=>'required',
-            'paid_amount'=>['required',  'min:5', 'max:6']
+            'paid_amount'=>['required']
         ]);
         $st_id = Group::where('id', $request->group_id)->first();
         $discount_amount = $request->discount_amount != '' ? $request->discount_amount : 0;
