@@ -59,25 +59,25 @@
                         @can('Super Admin')
                             <li class="nav-item">
                                 <a href="{{ route('graphicIndex') }}" class="nav-link {{ Request::is('graphics') ? "active":'' }}">
-                                    <i class="fas fa-comment-dollar"></i>
+                                    <i class="fas fa-file-invoice-dollar"></i>
                                     <p>Grafik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('months') }}" class="nav-link {{ Request::is('graphic*/month*') ? "active":'' }}">
-                                    <i class="fas fa-comment-dollar"></i>
+                                    <i class="fas fa-calendar-week"></i>
                                     <p>Yillik grafik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                             <a href="{{ route('graphicAll') }}" class="nav-link {{ Request::is('graphics/all') ? "active":'' }}">
-                                    <i class="fas fa-comment-dollar"></i>
+                                    <i class="fas fa-money-bill-alt"></i>
                                     <p>Umumiy grafik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('graphicHistory') }}" class="nav-link {{ Request::is('graphics/history') ? "active":'' }}">
-                                    <i class="fas fa-comment-dollar"></i>
+                                    <i class="fas fa-history"></i>
                                     <p>Grafik tarixi</p>
                                 </a>
                             </li>
