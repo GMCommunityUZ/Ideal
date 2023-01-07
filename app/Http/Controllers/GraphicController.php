@@ -21,8 +21,17 @@ class GraphicController extends Controller
         $groups = Group::all();
         return view('pages.graphic.index', compact('teachers', 'groups'));
     }
-    public function graphicStudents($id){
-        $graphics = Graphic::whereMonth('month', now()->format('m'))->where('group_id', $id)->paginate(7);
+    public function graphicStudents(Request $request, $id){
+        $searches = ['name', 'status'];
+        $graphics = Graphic::whereMonth('month', now()->format('m'))->with('student');
+        foreach ($searches as $search):
+            if ($request->has($search) && strlen($request->$search)){
+                $graphics = $graphics->whereHas('student', function ($query) use ($request, $search) {
+                    $query->where($search, 'like', '%' . $request->$search . '%');
+                });
+            }
+        endforeach;
+        $graphics = $graphics->where('group_id', $id)->paginate(7);
         $amount = $graphics->sum('paid_amount');
         $group = Group::where('id', $id)->first();
         return view('pages.graphic.students', compact('group', 'graphics', 'amount', 'id'));
