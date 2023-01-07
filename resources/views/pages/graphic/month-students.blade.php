@@ -80,7 +80,6 @@
                                                 @endcan
                                                 <input name="_method" type="hidden" value="DELETE">
                                                 <button type="button" class="btn btn-danger btn-sm" onclick="if (confirm('Ishonchingiz komilmi?')) { this.form.submit() } "> <i class="fas fa-trash-alt"></i></button>
-                                                <a href="{{ route('graphicPay',$graphic->id) }}" type="button" class="btn btn-secondary btn-sm"> <i class="fas fa-check-circle"></i></a>
                                             </div>
                                         </form>
                                     @endcan
