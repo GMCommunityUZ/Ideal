@@ -40,14 +40,14 @@
           'Super Admin'
        ])
             <li class="nav-item has-treeview">
-                <a href="#" class="nav-link {{ (Request::is('amount*'))? 'active':''}}">
+                <a href="#" class="nav-link {{ (Request::is('amount*') || Request::is('graphic*') || Request::is('graphic*/all') || Request::is('graphic*/history') || Request::is('graphic*/months')) ? 'active':''}}">
                     <i class="fas fa-sort-amount-up"></i>
                     <p>
                         To'lov tizimi
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview" style="display: {{ (Request::is('amount*') || Request::is('graphic*') || Request::is('graphic*/all') || Request::is('graphic*/history')) ? 'block':'none'}};">
+                <ul class="nav nav-treeview" style="display: {{ (Request::is('amount*') || Request::is('graphic*') || Request::is('graphic*/all') || Request::is('graphic*/history') || Request::is('graphic*/months')) ? 'block':'none'}};">
                     @can('Super Admin')
                         <li class="nav-item">
                             <a href="{{ route('amountIndex') }}" class="nav-link {{ Request::is('amount*') ? "active":'' }}">
@@ -58,20 +58,26 @@
                     @endcan
                         @can('Super Admin')
                             <li class="nav-item">
-                                <a href="{{ route('graphicIndex') }}" class="nav-link {{ Request::is('graphics') ? "active":'' }}">
-                                    <i class="fas fa-comment-dollar"></i>
+                                <a href="{{ route('graphicIndex') }}" class="nav-link {{ (Request::is('graphics') || Request::is('graphics/group*')) ? "active":'' }}">
+                                    <i class="fas fa-file-invoice-dollar"></i>
                                     <p>Grafik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('graphicAll') }}" class="nav-link {{ Request::is('graphics/all') ? "active":'' }}">
-                                    <i class="fas fa-comment-dollar"></i>
+                                <a href="{{ route('months') }}" class="nav-link {{ Request::is('graphic*/month*') ? "active":'' }}">
+                                    <i class="fas fa-calendar-week"></i>
+                                    <p>Yillik grafik</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                            <a href="{{ route('graphicAll') }}" class="nav-link {{ Request::is('graphics/all') ? "active":'' }}">
+                                    <i class="fas fa-money-bill-alt"></i>
                                     <p>Umumiy grafik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('graphicHistory') }}" class="nav-link {{ Request::is('graphics/history') ? "active":'' }}">
-                                    <i class="fas fa-comment-dollar"></i>
+                                    <i class="fas fa-history"></i>
                                     <p>Grafik tarixi</p>
                                 </a>
                             </li>

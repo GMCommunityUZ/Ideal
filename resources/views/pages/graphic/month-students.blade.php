@@ -13,7 +13,8 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Bosh sahifa</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('graphicIndex') }}">Graphic</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('groupGraphicTeacher', $month) }}">Graphic</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('months') }}">Yillik grafik</a></li>
                         <li class="breadcrumb-item active">O'quvchilar ro'yhati</li>
                     </ol>
                 </div>
@@ -54,7 +55,7 @@
                             </tr>
                             </thead>
                             @foreach($graphics as $graphic)
-                            <tbody>
+                                <tbody>
                                 <td>{{$loop->index+1}}</td>
                                 <td >@if(isset($graphic->student)) {{$graphic->student->name}} @else Mavjud emas @endif</td>
                                 <td>{{date('F', strtotime($graphic->month))}}</td>
@@ -84,7 +85,7 @@
                                         </form>
                                     @endcan
                                 </td>
-                            </tbody>
+                                </tbody>
                             @endforeach
                         </table>
                     </div>
@@ -94,7 +95,7 @@
                             {!! $graphics->links() !!}
                         </div>
                         <div class="float-right">
-                            <a href="{{route('excelExport', $group->id)}}" class="btn btn-file btn-sm mt-4"><i class="fas fa-download"></i>  Export Exel</a>
+                            <a href="{{url('graphics/export-excel/'. $group->id.'/month/'. $month)}}" class="btn btn-file btn-sm mt-4"><i class="fas fa-download"></i>  Export Exel</a>
                         </div>
                     </div>
                 </div>
