@@ -40,14 +40,14 @@
           'Super Admin'
        ])
             <li class="nav-item has-treeview">
-                <a href="#" class="nav-link {{ (Request::is('amount*'))? 'active':''}}">
+                <a href="#" class="nav-link {{ (Request::is('amount*') || Request::is('graphic*') || Request::is('graphic*/all') || Request::is('graphic*/history') || Request::is('graphic*/months')) ? 'active':''}}">
                     <i class="fas fa-sort-amount-up"></i>
                     <p>
                         To'lov tizimi
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview" style="display: {{ (Request::is('amount*') || Request::is('graphic*') || Request::is('graphic*/all') || Request::is('graphic*/history')) ? 'block':'none'}};">
+                <ul class="nav nav-treeview" style="display: {{ (Request::is('amount*') || Request::is('graphic*') || Request::is('graphic*/all') || Request::is('graphic*/history') || Request::is('graphic*/months')) ? 'block':'none'}};">
                     @can('Super Admin')
                         <li class="nav-item">
                             <a href="{{ route('amountIndex') }}" class="nav-link {{ Request::is('amount*') ? "active":'' }}">
@@ -64,7 +64,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('graphicAll') }}" class="nav-link {{ Request::is('graphics/all') ? "active":'' }}">
+                                <a href="{{ route('months') }}" class="nav-link {{ Request::is('graphic*/month*') ? "active":'' }}">
+                                    <i class="fas fa-comment-dollar"></i>
+                                    <p>Yillik grafik</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                            <a href="{{ route('graphicAll') }}" class="nav-link {{ Request::is('graphics/all') ? "active":'' }}">
                                     <i class="fas fa-comment-dollar"></i>
                                     <p>Umumiy grafik</p>
                                 </a>

@@ -21,7 +21,7 @@
     <!-- Main content -->
     <section class="content">
 
-       @foreach($teachers as $teacher)
+        @foreach($teachers as $teacher)
             <div class="card collapsed-card">
                 <div class="card-header border-transparent">
                     <h3 class="card-title">{{$teacher->name}} <span class="m-1 badge badge-primary">{{ $teacher->course }} </span></h3>
@@ -41,26 +41,26 @@
                             <tbody>
                             @foreach($groups as $group)
                                 @if($teacher->id == $group->teacher_id)
-                                <tr>
-                                    <td>
-                                        #
-                                    </td>
-                                    <td>
-                                        <a href="{{route('graphicStudents', $group->id)}}">
-                                            {{$group->name}}
-                                        </a>
-                                        <br>
-                                        <small>
-                                            Created {{$group->created_at}}
-                                        </small>
-                                    </td>
+                                    <tr>
+                                        <td>
+                                            #
+                                        </td>
+                                        <td>
+                                            <a href="{{url('graphics/group/'. $group->id .'/month/'.$item)}}">
+                                                {{$group->name}}
+                                            </a>
+                                            <br>
+                                            <small>
+                                                Created {{$group->created_at}}
+                                            </small>
+                                        </td>
 
 
-                                    <td class="project-state">
-                                        <span class="badge badge-success">{{$group->counter()}}</span>
-                                    </td>
+                                        <td class="project-state">
+                                            <span class="badge badge-success">{{$group->counter()}}</span>
+                                        </td>
 
-                                </tr>
+                                    </tr>
                                 @endif
                             @endforeach
                             </tbody>
@@ -68,8 +68,8 @@
                     </div>
                 </div>
             </div>
-       @endforeach
-        <!-- /.row -->
+    @endforeach
+    <!-- /.row -->
     </section>
     <!-- /.content -->
 @endsection
