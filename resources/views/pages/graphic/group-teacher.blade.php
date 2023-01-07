@@ -47,7 +47,7 @@
                                             #
                                         </td>
                                         <td>
-                                            <a href="{{url('graphics/group/'. $group->id .'/month/'.$item)}}">
+                                            <a href="{{url('graphics/'. $group->id .'/month/'.$item)}}">
                                                 {{$group->name}}
                                             </a>
                                             <br>

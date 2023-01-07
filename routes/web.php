@@ -77,7 +77,7 @@ Route::group(['middleware' => 'auth'],function (){
     Route::get('graphics/all', [GraphicController::class, 'graphicAll'])->name('graphicAll');
     Route::get('graphics/months', [GraphicController::class, 'months'])->name('months');
     Route::get('graphics/months/{item}/group-teacher', [GraphicController::class, 'groupGraphicTeacher'])->name('groupGraphicTeacher');
-    Route::get('graphics/group/{id}/month/{item}', [GraphicController::class, 'graphicStudentsMonth'])->name('graphicStudentsMonth');
+    Route::get('graphics/{id}/month/{item}', [GraphicController::class, 'graphicStudentsMonth'])->name('graphicStudentsMonth');
     Route::get('graphics/history', [GraphicController::class, 'graphicHistory'])->name('graphicHistory');
     Route::get('graphic-export/{id}', [GraphicController::class, 'export'])->name('excelExport');
     Route::get('graphics/export-excel/{id}/month/{month}', [GraphicController::class, 'exportMonth'])->name('exportMonth');
