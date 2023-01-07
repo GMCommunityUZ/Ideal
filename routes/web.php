@@ -67,7 +67,7 @@ Route::group(['middleware' => 'auth'],function (){
     Route::delete('amounts/delete/{id}',[AmountController::class,'destroy'])->name('amountDestroy');
     //Graphic
     Route::get('graphics',[GraphicController::class,'index'])->name('graphicIndex');
-    Route::get('graphics/{id}/students',[GraphicController::class,'graphicStudents'])->name('graphicStudents');
+    Route::get('graphics/groups/{id}/students',[GraphicController::class,'graphicStudents'])->name('graphicStudents');
     Route::get('graphics/{id}/add',[GraphicController::class,'add'])->name('graphicAdd');
     Route::post('graphics/create',[GraphicController::class,'create'])->name('graphicCreate');
     Route::get('graphics/{id}/edit',[GraphicController::class,'edit'])->name('graphicEdit');
@@ -76,7 +76,7 @@ Route::group(['middleware' => 'auth'],function (){
     Route::get('graphics/pay/{id}',[GraphicController::class,'graphicPay'])->name('graphicPay');
     Route::get('graphics/all', [GraphicController::class, 'graphicAll'])->name('graphicAll');
     Route::get('graphics/months', [GraphicController::class, 'months'])->name('months');
-    Route::get('graphics/group-teacher/{item}', [GraphicController::class, 'groupGraphicTeacher'])->name('groupGraphicTeacher');
+    Route::get('graphics/months/{item}/group-teacher', [GraphicController::class, 'groupGraphicTeacher'])->name('groupGraphicTeacher');
     Route::get('graphics/group/{id}/month/{item}', [GraphicController::class, 'graphicStudentsMonth'])->name('graphicStudentsMonth');
     Route::get('graphics/history', [GraphicController::class, 'graphicHistory'])->name('graphicHistory');
     Route::get('graphic-export/{id}', [GraphicController::class, 'export'])->name('excelExport');

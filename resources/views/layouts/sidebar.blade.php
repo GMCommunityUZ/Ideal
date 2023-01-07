@@ -58,7 +58,7 @@
                     @endcan
                         @can('Super Admin')
                             <li class="nav-item">
-                                <a href="{{ route('graphicIndex') }}" class="nav-link {{ Request::is('graphics') ? "active":'' }}">
+                                <a href="{{ route('graphicIndex') }}" class="nav-link {{ (Request::is('graphics') || Request::is('graphics/group*')) ? "active":'' }}">
                                     <i class="fas fa-file-invoice-dollar"></i>
                                     <p>Grafik</p>
                                 </a>
