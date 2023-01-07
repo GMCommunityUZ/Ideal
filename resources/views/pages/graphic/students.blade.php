@@ -41,10 +41,31 @@
                         <!-- Data table -->
                         <table  class="table table-bordered table-striped table-responsive-lg" id="tbl1" role="grid" aria-describedby="dataTable_info">
                             <thead>
+                            <form action="{{route('graphicStudents', $group->id)}}" method="get">
+                                <tr>
+                                    <td></td>
+                                    <td colspan="3">
+                                        <input class="form-control" placeholder="F.I.O" type="text" name="name" value="{{old('name', request()->name)}}">
+                                    </td>
+                                    <td colspan="3">
+                                        <select class="select2"  name="status" data-placeholder="Status bo'ycha" style="width: 100%;">
+                                            <option value=""></option>
+                                            <option {{Request::get('status') == 'To\'liq emas' ? 'selected' : ''}} value="To'liq emas">To'liq emas</option>
+                                            <option {{Request::get('status') == 'To\'lanmagan' ? 'selected' : ''}} value="To'lanmagan">To'lanmagan</option>
+                                            <option {{Request::get('status') == 'To\'langan' ? 'selected' : ''}} value="To'langan">To'langan</option>
+                                        </select>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <button type="submit" name="search" class="btn btn-dark btn-sm" ><i class="fas fa-search"></i> Qidiruv</button>
+                                            <a href="{{route('graphicStudents', $group->id)}}" class="btn btn-default btn-sm"><i class="fas fa-recycle"></i> Tozalash</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </form>
                             <tr>
                                 <th>№</th>
                                 <th>Ism familiya</th>
-                                <th>Month</th>
                                 <th>To'langan</th>
                                 <th>Chegirma</th>
                                 <th>Qarz</th>
@@ -57,7 +78,6 @@
                             <tbody>
                                 <td>{{$loop->index+1}}</td>
                                 <td >@if(isset($graphic->student)) {{$graphic->student->name}} @else Mavjud emas @endif</td>
-                                <td>{{date('F', strtotime($graphic->month))}}</td>
                                 <td>{{$graphic->paid_amount}} so'm</td>
                                 <td>{{$graphic->discount_amount}} so'm</td>
                                 <td>{{$graphic->remaining_amount}} so'm</td>
