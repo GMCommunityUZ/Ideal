@@ -26,18 +26,13 @@ class GraphicController extends Controller
         return view('pages.graphic.students', compact('group', 'graphics', 'amount', 'id'));
     }
     public function add($id){
-        $students = Student::where('group_id', $id)->whereNotExists(function($query)
-        {
-            $query->select(DB::raw(1))
-                ->from('graphics')->whereMonth('month', now()->format('m'))
-                ->whereRaw('students.id = graphics.student_id');
-        })->get();
+        $students = Student::where('group_id', $id)->get();
         return view('pages.graphic.add', compact('students','id'));
     }
     public function create(Request $request){
         $this->validate($request, [
             'student_id'=>'required',
-            'paid_amount'=>['required',  'min:5', 'max:6']
+            'paid_amount'=>['required']
         ]);
         $st_id = Group::where('id', $request->group_id)->first();
         $discount_amount = $request->discount_amount != '' ? $request->discount_amount : 0;
@@ -73,7 +68,7 @@ class GraphicController extends Controller
     public function update(Request $request, $id){
         $this->validate($request, [
             'student_id'=>'required',
-            'paid_amount'=>['required',  'min:5', 'max:6']
+            'paid_amount'=>['required']
         ]);
         $st_id = Group::where('id', $request->group_id)->first();
         $discount_amount = $request->discount_amount != '' ? $request->discount_amount : 0;
