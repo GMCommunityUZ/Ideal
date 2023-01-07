@@ -166,6 +166,15 @@
             </li>
             @endif
         @endcanany
+            @can('api-user.view')
+                <li class="nav-item">
+                    <a href="{{ route('api-userIndex') }}" class="nav-link {{ Request::is('api-users*') ? "active":'' }}">
+                        <i class="fas fa-cog"></i>
+                        <sub><i class="fas fa-child"></i></sub>
+                        <p> API Users</p>
+                    </a>
+                </li>
+            @endcan
     </ul>
 
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
