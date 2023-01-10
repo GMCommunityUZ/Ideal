@@ -248,7 +248,7 @@ class GraphicController extends Controller
         $groups = Group::all();
         return view('pages.graphic.group-teacher', compact('teachers', 'groups', 'item'));
     }
-    public function graphicStudentsMonth($id, $item){
+    public function graphicStudentsMonth(Request $request, $id, $item){
         $month = '';
         if ($item == 'January'){
             $month = '01';
@@ -275,7 +275,16 @@ class GraphicController extends Controller
         }elseif ($item == 'December'){
             $month = '12';
         }
-        $graphics = Graphic::whereMonth('month', now()->format($month))->where('group_id', $id)->paginate(7);
+        $searches = ['name', 'status'];
+        $graphics = Graphic::whereMonth('month', now()->format($month));
+        foreach ($searches as $search):
+            if ($request->has($search) && strlen($request->$search)){
+                $graphics = $graphics->whereHas('student', function ($query) use ($request, $search) {
+                    $query->where($search, 'like', '%' . $request->$search . '%');
+                });
+            }
+        endforeach;
+            $graphics = $graphics->where('group_id', $id)->paginate(7);
         $amount = $graphics->sum('paid_amount');
         $group = Group::where('id', $id)->first();
         return view('pages.graphic.month-students', compact('group', 'graphics', 'amount', 'id', 'item'));
