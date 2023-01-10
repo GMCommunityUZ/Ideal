@@ -78,9 +78,16 @@ Route::group(['middleware' => 'auth'],function (){
     Route::get('graphics/months', [GraphicController::class, 'months'])->name('months');
     Route::get('graphics/months/{item}/group-teacher', [GraphicController::class, 'groupGraphicTeacher'])->name('groupGraphicTeacher');
     Route::get('graphics/{id}/month/{item}', [GraphicController::class, 'graphicStudentsMonth'])->name('graphicStudentsMonth');
+
+    Route::get('graphics/{id}/add/month/{item}',[GraphicController::class,'addWithMonth'])->name('addWithMonth');
+    Route::get('graphics/{id}/edit/month/{month}',[GraphicController::class,'editMonth'])->name('editMonth');
+
+
+
     Route::get('graphics/history', [GraphicController::class, 'graphicHistory'])->name('graphicHistory');
     Route::get('graphic-export/{id}', [GraphicController::class, 'export'])->name('excelExport');
-    Route::get('graphics/export-excel/{id}/month/{month}', [GraphicController::class, 'exportMonth'])->name('exportMonth');
+    Route::get('graphics/export-excel/{id}/month/{item}', [GraphicController::class, 'exportMonth'])->name('exportMonth');
+
     //Groups
     Route::get('groups',[GroupController::class,'index'])->name('groupIndex');
     Route::get('groups/add',[GroupController::class,'add'])->name('groupAdd');

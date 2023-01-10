@@ -11,9 +11,10 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Uy</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('graphicIndex') }}">Grafik</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('graphicStudents',$id) }}">O'quvchilar ro'yxati</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Bosh sahifa</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('months') }}">Yillik grafik</a></li>
+                        <li class="breadcrumb-item"><a href="{{ isset($item) ?  route('graphicIndex', $item) : route('graphicIndex')}}">Grafik</a></li>
+                        <li class="breadcrumb-item"><a href="{{ isset($item) ? url('graphics/'.$graphic->group_id.'/month/'.$item) : route('graphicStudents', $graphic->group_id) }}">O'quvchilar ro'yxati</a></li>
                         <li class="breadcrumb-item active">Tahrirlash</li>
                     </ol>
                 </div>
@@ -60,6 +61,7 @@
                                     <span class="error invalid-feedback">{{ $errors->first('discount_amount') }}</span>
                                 @endif
                             </div>
+                            <input name="monthSelected" type="hidden" value="{{isset($month) ? $month : ''}}">
                             <div class="form-group">
                                 <label>Oy</label>
                                 <input type="month" name="month" class="form-control {{ $errors->has('month') ? "is-invalid":"" }}" value="{{ old('month', date('Y-m', strtotime($graphic->month))) }}">
@@ -71,7 +73,7 @@
                             <input type="hidden" name="group_id" value="{{$graphic->group_id}}">
                             <div class="form-group">
                                 <button type="submit" class="btn btn-success float-right">Saqlash</button>
-                                <a href="{{ route('graphicStudents', $graphic->group_id) }}" class="btn btn-default float-left">Bekor qilish</a>
+                                <a href="{{ isset($item) ? url('graphics/'.$graphic->group_id.'/month/'.$item) : route('graphicStudents', $graphic->group_id) }}" class="btn btn-default float-left">Bekor qilish</a>
                             </div>
                         </form>
 

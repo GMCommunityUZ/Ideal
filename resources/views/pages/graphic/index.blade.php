@@ -51,7 +51,7 @@
                                         </a>
                                         <br>
                                         <small>
-                                            Created {{$group->created_at}}
+                                            Yaratilgan {{$group->created_at}}
                                         </small>
                                     </td>
 

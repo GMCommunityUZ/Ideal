@@ -13,8 +13,8 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Bosh sahifa</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('groupGraphicTeacher', $month) }}">Graphic</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('months') }}">Yillik grafik</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('groupGraphicTeacher', $item) }}">Grafik</a></li>
                         <li class="breadcrumb-item active">O'quvchilar ro'yhati</li>
                     </ol>
                 </div>
@@ -31,7 +31,7 @@
                     <div class="card-header">
 
                         @can('Super Admin')
-                            <a href="{{route('graphicAdd', $group->id)}}" class="btn btn-success btn-sm float-right">
+                            <a href="{{url('graphics/'.$group->id.'/add/month/'.date('F', strtotime($item)))}}" class="btn btn-success btn-sm float-right">
                                 <span class="fas fa-plus-circle"></span>
                                 Qo'shish
                             </a>
@@ -45,7 +45,6 @@
                             <tr>
                                 <th>№</th>
                                 <th>Ism familiya</th>
-                                <th>Month</th>
                                 <th>To'langan</th>
                                 <th>Chegirma</th>
                                 <th>Qarz</th>
@@ -58,7 +57,6 @@
                                 <tbody>
                                 <td>{{$loop->index+1}}</td>
                                 <td >@if(isset($graphic->student)) {{$graphic->student->name}} @else Mavjud emas @endif</td>
-                                <td>{{date('F', strtotime($graphic->month))}}</td>
                                 <td>{{$graphic->paid_amount}} so'm</td>
                                 <td>{{$graphic->discount_amount}} so'm</td>
                                 <td>{{$graphic->remaining_amount}} so'm</td>
@@ -76,7 +74,7 @@
                                             @csrf
                                             <div class="btn-group">
                                                 @can('user.edit')
-                                                    <a href="{{ route('graphicEdit', $graphic->id) }}" type="button" class="btn btn-info btn-sm"> <i class="fas fa-edit"></i></a>
+                                                    <a href="{{url('graphics/'.$graphic->id.'/edit/month/'.date('F', strtotime($item)))}}" type="button" class="btn btn-info btn-sm"> <i class="fas fa-edit"></i></a>
                                                 @endcan
                                                 <input name="_method" type="hidden" value="DELETE">
                                                 <button type="button" class="btn btn-danger btn-sm" onclick="if (confirm('Ishonchingiz komilmi?')) { this.form.submit() } "> <i class="fas fa-trash-alt"></i></button>
@@ -94,7 +92,7 @@
                             {!! $graphics->links() !!}
                         </div>
                         <div class="float-right">
-                            <a href="{{url('graphics/export-excel/'. $group->id.'/month/'. $month)}}" class="btn btn-file btn-sm mt-4"><i class="fas fa-download"></i>  Export Exel</a>
+                            <a href="{{url('graphics/export-excel/'. $group->id.'/month/'.$item)}}" class="btn btn-file btn-sm mt-4"><i class="fas fa-download"></i>  Export Exel</a>
                         </div>
                     </div>
                 </div>

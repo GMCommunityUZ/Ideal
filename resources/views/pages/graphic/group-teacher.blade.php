@@ -47,12 +47,12 @@
                                             #
                                         </td>
                                         <td>
-                                            <a href="{{url('graphics/'. $group->id .'/month/'.$item)}}">
+                                            <a href="{{url('graphics/'. $group->id .'/month/'.date('F', strtotime($item)))}}">
                                                 {{$group->name}}
                                             </a>
                                             <br>
                                             <small>
-                                                Created {{$group->created_at}}
+                                                Yaratilgan {{$group->created_at}}
                                             </small>
                                         </td>
 

@@ -49,7 +49,7 @@
                                                 @elseif($item == 'June')
                                                     Iyun
                                                 @elseif($item == 'July')
-                                                    Iyun
+                                                    Iyul
                                                 @elseif($item == 'August')
                                                     Avgust
                                                 @elseif($item == 'September')

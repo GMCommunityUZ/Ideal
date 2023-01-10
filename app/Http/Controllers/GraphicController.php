@@ -50,7 +50,13 @@ class GraphicController extends Controller
         $amountAll = $request->paid_amount + $request->discount_amount;
         $remaining_amount = $request->paid_amount != 0 ? $st_id->amount->price - $amountAll : 0;
         $comment = $request->comment != null ? $request->comment : 'Mavjud emas';
-        $month = $request->month != '' ? date('Y-m-d', strtotime($request->month)) : now()->format('Y-m-d');
+        if ($request->get('monthSelected') != null && $request->month == null){
+            $month = date('Y-'.$request->monthSelected.'-d');
+        }elseif ($request->month == null && $request->monthSelected == null){
+            $month = now()->format('Y-m-d');
+        }elseif ($request->month != null){
+            $month = date('Y-m-d', strtotime($request->month));
+        }
         if ($remaining_amount != 0){
             $status = 'To\'liq emas';
         }elseif ($request->paid_amount == 0 && $remaining_amount == 0){
@@ -69,6 +75,35 @@ class GraphicController extends Controller
             'status'=>$status,
         ]);
         $graphic->save();
+        if ($request->input('monthSelected') != null){
+            $newMonth = '';
+            if ($request->input('monthSelected') == '01'){
+                $newMonth = 'January';
+            }elseif ($request->input('monthSelected') == '02'){
+                $newMonth = 'February';
+            }elseif ($request->input('monthSelected') == '03'){
+                $newMonth = 'March';
+            }elseif ($request->input('monthSelected') == '04'){
+                $newMonth = 'April';
+            }elseif ($request->input('monthSelected') == '05'){
+                $newMonth = 'May';
+            }elseif ($request->input('monthSelected') == '06'){
+                $newMonth = 'June';
+            }elseif ($request->input('monthSelected') == '07'){
+                $newMonth = 'July';
+            }elseif ($request->input('monthSelected') == '08'){
+                $newMonth = 'August';
+            }elseif ($request->input('monthSelected') == '09'){
+                $newMonth = 'September';
+            }elseif ($request->input('monthSelected') == '10'){
+                $newMonth = 'October';
+            }elseif ($request->input('monthSelected') == '11'){
+                $newMonth = 'November';
+            }elseif ($request->input('monthSelected') == '12'){
+                $newMonth = 'December';
+            }
+            return redirect()->back()->setTargetUrl('/graphics/'.$request->group_id.'/month/'.$newMonth);
+        }
         return redirect()->route('graphicStudents', $request->group_id);
     }
     public function edit($id){
@@ -86,7 +121,13 @@ class GraphicController extends Controller
         $amountAll = $request->paid_amount + $request->discount_amount;
         $remaining_amount = $request->paid_amount != 0 ? $st_id->amount->price - $amountAll : 0;
         $comment = $request->comment != null ? $request->comment : 'Mavjud emas';
-        $month = $request->month != '' ? date('Y-m-d', strtotime($request->month)) : now()->format('Y-m-d');
+        if ($request->get('monthSelected') != null && $request->month == null){
+            $month = date('Y-'.$request->monthSelected.'-d');
+        }elseif ($request->month == null && $request->monthSelected == null){
+            $month = now()->format('Y-m-d');
+        }elseif ($request->month != null){
+            $month = date('Y-m-d', strtotime($request->month));
+        }
         if ($remaining_amount != 0){
             $status = 'To\'liq emas';
         }elseif ($request->paid_amount == 0 && $remaining_amount == 0){
@@ -104,6 +145,35 @@ class GraphicController extends Controller
         $graphic->comment = $comment;
         $graphic->status = $status;
         $graphic->update();
+        if ($request->input('monthSelected') != null){
+            $newMonth = '';
+            if ($request->input('monthSelected') == '01'){
+                $newMonth = 'January';
+            }elseif ($request->input('monthSelected') == '02'){
+                $newMonth = 'February';
+            }elseif ($request->input('monthSelected') == '03'){
+                $newMonth = 'March';
+            }elseif ($request->input('monthSelected') == '04'){
+                $newMonth = 'April';
+            }elseif ($request->input('monthSelected') == '05'){
+                $newMonth = 'May';
+            }elseif ($request->input('monthSelected') == '06'){
+                $newMonth = 'June';
+            }elseif ($request->input('monthSelected') == '07'){
+                $newMonth = 'July';
+            }elseif ($request->input('monthSelected') == '08'){
+                $newMonth = 'August';
+            }elseif ($request->input('monthSelected') == '09'){
+                $newMonth = 'September';
+            }elseif ($request->input('monthSelected') == '10'){
+                $newMonth = 'October';
+            }elseif ($request->input('monthSelected') == '11'){
+                $newMonth = 'November';
+            }elseif ($request->input('monthSelected') == '12'){
+                $newMonth = 'December';
+            }
+            return redirect()->back()->setTargetUrl('/graphics/'.$request->group_id.'/month/'.$newMonth);
+        }
         return redirect()->route('graphicStudents', $request->group_id);
     }
     public function destroy($id){
@@ -166,7 +236,7 @@ class GraphicController extends Controller
             return redirect()->back();
         }
         $excel = App::make('excel');
-        $random = rand(1,9999);
+        $random = rand(1111,9999);
         return $excel->download(new GraphicExport($graphics), 'graphic'.$random.'.xlsx');
     }
     public function months(){
@@ -208,17 +278,105 @@ class GraphicController extends Controller
         $graphics = Graphic::whereMonth('month', now()->format($month))->where('group_id', $id)->paginate(7);
         $amount = $graphics->sum('paid_amount');
         $group = Group::where('id', $id)->first();
-        return view('pages.graphic.month-students', compact('group', 'graphics', 'amount', 'id', 'month'));
+        return view('pages.graphic.month-students', compact('group', 'graphics', 'amount', 'id', 'item'));
     }
-    public function exportMonth($id, $month)
+    public function exportMonth($id, $item)
     {
+        $month = '';
+        if ($item == 'January'){
+            $month = '01';
+        }elseif ($item == 'February'){
+            $month = '02';
+        }elseif ($item == 'March'){
+            $month = '03';
+        }elseif ($item == 'April'){
+            $month = '04';
+        }elseif ($item == 'May'){
+            $month = '05';
+        }elseif ($item == 'June'){
+            $month = '06';
+        }elseif ($item == 'July'){
+            $month = '07';
+        }elseif ($item == 'August'){
+            $month = '08';
+        }elseif ($item == 'September'){
+            $month = '09';
+        }elseif ($item == 'October'){
+            $month = '10';
+        }elseif ($item == 'November'){
+            $month = '11';
+        }elseif ($item == 'December'){
+            $month = '12';
+        }
         $graphics = Graphic::whereMonth('month', now()->format($month))->where('group_id', $id)->get();
         if ($graphics->all() == null){
             message_set('Bo\'sh', 'warning', 2);
             return redirect()->back();
         }
         $excel = App::make('excel');
-        $random = rand(1,9999);
+        $random = rand(1111, 9999);
         return $excel->download(new GraphicExport($graphics), 'graphic'.$random.'.xlsx');
     }
+    public function addWithMonth($id, $item){
+        $month = '';
+        if ($item == 'January'){
+            $month = '01';
+        }elseif ($item == 'February'){
+            $month = '02';
+        }elseif ($item == 'March'){
+            $month = '03';
+        }elseif ($item == 'April'){
+            $month = '04';
+        }elseif ($item == 'May'){
+            $month = '05';
+        }elseif ($item == 'June'){
+            $month = '06';
+        }elseif ($item == 'July'){
+            $month = '07';
+        }elseif ($item == 'August'){
+            $month = '08';
+        }elseif ($item == 'September'){
+            $month = '09';
+        }elseif ($item == 'October'){
+            $month = '10';
+        }elseif ($item == 'November'){
+            $month = '11';
+        }elseif ($item == 'December'){
+            $month = '12';
+        }
+        $students = Student::where('group_id', $id)->get();
+        return view('pages.graphic.add', compact('students','id', 'month', 'item'));
+    }
+    public function editMonth($id, $item){
+        $month = '';
+        if ($item == 'January'){
+            $month = '01';
+        }elseif ($item == 'February'){
+            $month = '02';
+        }elseif ($item == 'March'){
+            $month = '03';
+        }elseif ($item == 'April'){
+            $month = '04';
+        }elseif ($item == 'May'){
+            $month = '05';
+        }elseif ($item == 'June'){
+            $month = '06';
+        }elseif ($item == 'July'){
+            $month = '07';
+        }elseif ($item == 'August'){
+            $month = '08';
+        }elseif ($item == 'September'){
+            $month = '09';
+        }elseif ($item == 'October'){
+            $month = '10';
+        }elseif ($item == 'November'){
+            $month = '11';
+        }elseif ($item == 'December'){
+            $month = '12';
+        }
+        $graphic = Graphic::find($id);
+        $students = Student::where('group_id', $graphic->group_id)->get();
+        return view('pages.graphic.edit', compact('graphic', 'students', 'id', 'month', 'item'));
+    }
+
 }
